@@ -1,0 +1,27 @@
+node_modules/
+dist/
+.wrangler/
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
+
+# Deployment-specific Cloudflare configuration
+wrangler.jsonc
+worker-configuration.d.ts
+
+# Local hosting and agent metadata
+.openai/hosting.json
+AGENTS.md
+
+# Local visual QA artifacts
+design-qa.md
+design-qa-*.png
+qa-home-dark.png
+qa-home-mobile.png
+
+# Editors and operating systems
+.DS_Store
+*.log
+.idea/
+.vscode/

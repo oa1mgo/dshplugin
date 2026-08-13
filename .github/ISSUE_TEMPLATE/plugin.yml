@@ -1,0 +1,54 @@
+name: Submit a plugin
+description: Propose a public DeepSeek Harness plugin for the registry.
+title: "catalog: add "
+labels:
+  - plugin submission
+body:
+  - type: input
+    id: repository
+    attributes:
+      label: Canonical GitHub repository
+      placeholder: https://github.com/owner/repository
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Plugin name
+    validations:
+      required: true
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      options:
+        - Plugin
+        - Bundle
+        - Skill
+        - Interface
+        - Tool
+        - TUI
+        - Skin
+        - Channel
+        - Infrastructure
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What does it do?
+      description: Keep the description factual and concise.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Submission checks
+      options:
+        - label: The repository is public and this is its canonical URL.
+          required: true
+        - label: The project extends or supports DeepSeek Harness.
+          required: true
+        - label: I understand that listing does not imply verification.
+          required: true

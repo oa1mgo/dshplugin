@@ -1,0 +1,5 @@
+# Copy this file to .dev.vars for local Worker development.
+# Never commit the copied file or real deployment values.
+ADMIN_EMAIL="admin@example.com"
+CF_ACCESS_AUD="replace-with-your-access-application-audience"
+CF_ACCESS_ISSUER="https://your-team.cloudflareaccess.com"

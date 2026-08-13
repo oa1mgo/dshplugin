@@ -1,0 +1,29 @@
+name: Feature proposal
+description: Suggest an improvement to discovery, verification, or community workflows.
+title: "feat: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or opportunity
+      description: What is difficult today, and who is affected?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed direction
+      description: Describe the outcome rather than only the implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: trust
+    attributes:
+      label: Trust and ecosystem impact
+      description: Could this affect verification meaning, maintainers, privacy, or moderation?
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered

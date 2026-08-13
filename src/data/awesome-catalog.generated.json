@@ -1,0 +1,106 @@
+{
+  "meta": {
+    "sourceRepo": "AdamPlatin123/awesome-dsh-plugins",
+    "sourceUrl": "https://github.com/AdamPlatin123/awesome-dsh-plugins",
+    "sourcePath": "PLUGINS.md",
+    "sourceRevision": "0941a551675178168251f031f7c990823aa436bf",
+    "sourceUpdatedAt": "2026-08-13T17:36:48.200Z",
+    "repositoryValidation": {
+      "method": "git-smart-http",
+      "checkedAt": "2026-08-13T17:36:48.200Z",
+      "candidates": 9,
+      "validated": 7,
+      "accepted": 7,
+      "deduplicated": 0,
+      "rejected": 2,
+      "rejectedRepositories": [
+        "dsh-external/chat-width",
+        "dsh-external/dsh-question-collapse"
+      ]
+    },
+    "license": "MIT",
+    "total": 7,
+    "categoryCounts": {
+      "Plugin": 6,
+      "Bundle": 0,
+      "Skill": 0,
+      "Channel": 0,
+      "Infrastructure": 1,
+      "Other": 0
+    }
+  },
+  "plugins": [
+    {
+      "name": "dsh-annotation",
+      "repo": "omdsh-dev/dsh-annotation",
+      "owner": "omdsh-dev",
+      "url": "https://github.com/omdsh-dev/dsh-annotation",
+      "category": "Plugin",
+      "description": "DSH Web 选中批注插件：选文字→批注→回车随消息发送，回复按 Annotation N 逐条对照（可悬浮芯片）",
+      "repositoryStatus": "public",
+      "repositoryCheckedAt": "2026-08-13T17:36:48.200Z"
+    },
+    {
+      "name": "dsh-artifact",
+      "repo": "william-jin-cmu/dsh-artifact",
+      "owner": "william-jin-cmu",
+      "url": "https://github.com/william-jin-cmu/dsh-artifact",
+      "category": "Plugin",
+      "description": "制品管理",
+      "upstreamRepo": "dsh-external/dsh-artifact",
+      "repositoryStatus": "public",
+      "repositoryCheckedAt": "2026-08-13T17:36:48.200Z"
+    },
+    {
+      "name": "dsh-genui",
+      "repo": "omdsh-dev/dsh-genui",
+      "owner": "omdsh-dev",
+      "url": "https://github.com/omdsh-dev/dsh-genui",
+      "category": "Plugin",
+      "description": "GenUI 内联交互组件：dsh-ui fence 渲染图表/表单/测验/3D 场景，带 action 事件环",
+      "repositoryStatus": "public",
+      "repositoryCheckedAt": "2026-08-13T17:36:48.200Z"
+    },
+    {
+      "name": "dsh-sentinel",
+      "repo": "fuhefei/dsh-sentinel",
+      "owner": "fuhefei",
+      "url": "https://github.com/fuhefei/dsh-sentinel",
+      "category": "Plugin",
+      "description": "事件驱动唤醒 agent loop（文件/命令/http/进程/webhook 传感器）",
+      "repositoryStatus": "public",
+      "repositoryCheckedAt": "2026-08-13T17:36:48.200Z"
+    },
+    {
+      "name": "dsh-split-panes",
+      "repo": "lehhair/dsh-split-panes",
+      "owner": "lehhair",
+      "url": "https://github.com/lehhair/dsh-split-panes",
+      "category": "Plugin",
+      "description": "分屏面板",
+      "upstreamRepo": "dsh-external/dsh-split-panes",
+      "repositoryStatus": "public",
+      "repositoryCheckedAt": "2026-08-13T17:36:48.200Z"
+    },
+    {
+      "name": "dsh-tianshu-tui",
+      "repo": "huiliyi37/dsh-tianshu-tui",
+      "owner": "huiliyi37",
+      "url": "https://github.com/huiliyi37/dsh-tianshu-tui",
+      "category": "Plugin",
+      "description": "DSH 的 TUI（终端界面）",
+      "repositoryStatus": "public",
+      "repositoryCheckedAt": "2026-08-13T17:36:48.200Z"
+    },
+    {
+      "name": "dsh-work",
+      "repo": "vibeinging/dsh-work",
+      "owner": "vibeinging",
+      "url": "https://github.com/vibeinging/dsh-work",
+      "category": "Infrastructure",
+      "description": "以 dsh 为骨、codex 为皮的桌面 app",
+      "repositoryStatus": "public",
+      "repositoryCheckedAt": "2026-08-13T17:36:48.200Z"
+    }
+  ]
+}

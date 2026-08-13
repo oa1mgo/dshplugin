@@ -1,0 +1,44 @@
+{
+  "name": "dshplugin",
+  "version": "0.0.0",
+  "private": true,
+  "description": "A community-built discovery and verification registry for DeepSeek Harness plugins.",
+  "license": "MIT",
+  "homepage": "https://dshplugin.org",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oa1mgo/dshplugin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/oa1mgo/dshplugin/issues"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && node scripts/prepare-sites-build.mjs",
+    "deploy": "npm run build && wrangler deploy",
+    "preview": "vite preview",
+    "sync:catalog": "node scripts/sync-awesome-catalog.mjs",
+    "check:catalog-links": "node scripts/check-catalog-links.mjs",
+    "test": "npm run test:catalog && npm run test:i18n",
+    "test:catalog": "node --test tests/catalog.test.mjs",
+    "test:sites": "node --test tests/sites-worker.test.mjs",
+    "test:i18n": "node --test tests/i18n.test.mjs",
+    "verify": "npm test && npm run build && npm run test:sites",
+    "typegen": "wrangler types"
+  },
+  "dependencies": {
+    "@fontsource-variable/manrope": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "@phosphor-icons/react": "^2.1.10",
+    "@vitejs/plugin-react": "5.0.4",
+    "jose": "^6.2.8",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "vite": "6.4.2",
+    "wrangler": "^4.30.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0"
+  }
+}
