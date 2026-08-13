@@ -6,7 +6,7 @@
 
 A community-built discovery and verification registry for the DeepSeek Harness ecosystem.
 
-[Live registry](https://dshplugin.org) · [dshpkg.com mirror](https://dshpkg.com) · [Contributing](CONTRIBUTING.md) · [中文说明](README.zh-CN.md)
+[Open dshplugin.org](https://dshplugin.org) · [Contributing](CONTRIBUTING.md) · [中文说明](README.zh-CN.md)
 
 [![CI](https://github.com/oa1mgo/dshplugin/actions/workflows/ci.yml/badge.svg)](https://github.com/oa1mgo/dshplugin/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-0f766e.svg)](LICENSE)
@@ -25,7 +25,7 @@ DeepSeek Harness is intentionally extensible, but discovery should not require s
 
 The project is built in public so plugin authors, DSH users, security researchers, and translators can improve the ecosystem together.
 
-The production registry is available at **[dshplugin.org](https://dshplugin.org)**, with **[dshpkg.com](https://dshpkg.com)** serving the same application as a secondary entry point.
+Explore the production registry at **[dshplugin.org](https://dshplugin.org)**.
 
 ## What is included
 

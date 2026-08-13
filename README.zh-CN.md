@@ -6,7 +6,7 @@
 
 由社区共同建设的 DeepSeek Harness 插件发现与验证广场。
 
-[主站 dshplugin.org](https://dshplugin.org) · [镜像 dshpkg.com](https://dshpkg.com) · [参与共建](CONTRIBUTING.md) · [English](README.md)
+[打开 dshplugin.org](https://dshplugin.org) · [参与共建](CONTRIBUTING.md) · [English](README.md)
 
 </div>
 
@@ -21,7 +21,7 @@ DeepSeek Harness 的架构非常开放，但插件发现不应该依赖零散搜
 
 项目选择公开共建，让插件作者、DSH 用户、安全研究者和翻译贡献者都能参与改善生态。
 
-线上主站是 **[dshplugin.org](https://dshplugin.org)**，**[dshpkg.com](https://dshpkg.com)** 提供相同内容，可作为第二访问入口。
+欢迎直接访问正式站点 **[dshplugin.org](https://dshplugin.org)**。
 
 ## 已有能力
 
