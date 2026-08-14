@@ -76,9 +76,9 @@ test("proxies the latest generated catalog without requiring D1", async () => {
 
   assert.equal(response.status, 200);
   assert.deepEqual(await response.json(), payload);
-  assert.equal(calls[0].url, "https://raw.githubusercontent.com/oa1mgo/dshplugin/main/public/catalog/github-topic.generated.json");
-  assert.equal(calls[0].options.cf.cacheTtl, 900);
-  assert.match(response.headers.get("cache-control"), /s-maxage=900/);
+  assert.equal(calls[0].url, "https://raw.githubusercontent.com/oa1mgo/dshplugin/main/public/catalog/github-topic.generated.json?source=dshplugin");
+  assert.equal(calls[0].options.cf.cacheTtl, 300);
+  assert.match(response.headers.get("cache-control"), /s-maxage=300/);
 });
 
 function createDatabaseMock() {

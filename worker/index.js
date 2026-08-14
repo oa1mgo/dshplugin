@@ -11,7 +11,7 @@ const SECURITY_HEADERS = {
 const REPORT_REASONS = new Set(["security", "broken", "misleading", "harmful", "other"]);
 const MODERATION_STATUSES = new Set(["pending", "reviewing", "resolved", "rejected"]);
 const CATALOG_REVIEW_STATUSES = new Set(["unverified", "review", "verified"]);
-const GITHUB_CATALOG_URL = "https://raw.githubusercontent.com/oa1mgo/dshplugin/main/public/catalog/github-topic.generated.json";
+const GITHUB_CATALOG_URL = "https://raw.githubusercontent.com/oa1mgo/dshplugin/main/public/catalog/github-topic.generated.json?source=dshplugin";
 const accessKeysets = new Map();
 
 function withSecurityHeaders(response) {
@@ -139,12 +139,12 @@ async function handleGithubCatalog(env) {
   const fetcher = env.CATALOG_FETCH || fetch;
   const upstream = await fetcher(GITHUB_CATALOG_URL, {
     headers: { accept: "application/json", "user-agent": "dshplugin-catalog-proxy" },
-    cf: { cacheEverything: true, cacheTtl: 900 },
+    cf: { cacheEverything: true, cacheTtl: 300 },
   });
   if (!upstream.ok) return json({ error: "catalog_unavailable" }, 502);
   return withSecurityHeaders(new Response(upstream.body, {
     headers: {
-      "Cache-Control": "public, max-age=300, s-maxage=900",
+      "Cache-Control": "public, max-age=60, s-maxage=300",
       "Content-Type": "application/json; charset=utf-8",
     },
   }));
