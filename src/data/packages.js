@@ -1,6 +1,6 @@
 import awesomeCatalog from "./awesome-catalog.generated.json" with { type: "json" };
 
-const curatedPackages = [
+export const curatedPackages = [
   {
     slug: "dsh-web-ui",
     name: "dsh-web-ui",
@@ -16,21 +16,12 @@ const curatedPackages = [
     compatibility: "DSH rc.6",
     revision: "community check",
     revisionZh: "社区检查",
-    status: "review",
-    evidence: "Verification queued",
-    evidenceZh: "等待验证",
-    scripts: "Lifecycle review pending",
-    scriptsZh: "等待生命周期脚本审查",
-    checked: "Indexed today",
-    checkedZh: "今日收录",
     commit: "main · mutable source",
     commitZh: "main · 可变来源",
-    result: "Static manifest scan queued",
-    resultZh: "等待静态 manifest 扫描",
     command: "dsh plugin --profile web add github:zhu1090093659/dsh-web-ui",
     testedPlatforms: [],
     sourceKind: "curated",
-    stars: 267,
+    stars: 1679,
     order: 1,
   },
   {
@@ -48,21 +39,12 @@ const curatedPackages = [
     compatibility: "DSH rc.6",
     revision: "community check",
     revisionZh: "社区检查",
-    status: "review",
-    evidence: "Verification queued",
-    evidenceZh: "等待验证",
-    scripts: "Prepare script present",
-    scriptsZh: "包含 prepare 脚本",
-    checked: "Indexed today",
-    checkedZh: "今日收录",
     commit: "main · pin before install",
     commitZh: "main · 安装前应固定 commit",
-    result: "Build authorization review required",
-    resultZh: "需要审查构建授权",
     command: "dsh plugin --profile web add github:Anionex/dsh-vision-toolkit",
     testedPlatforms: [],
     sourceKind: "curated",
-    stars: 97,
+    stars: 298,
     order: 2,
   },
   {
@@ -80,51 +62,33 @@ const curatedPackages = [
     compatibility: "DSH main",
     revision: "unconfirmed",
     revisionZh: "未确认",
-    status: "unverified",
-    evidence: "Not yet tested",
-    evidenceZh: "尚未测试",
-    scripts: "Manifest discovered",
-    scriptsZh: "已发现 manifest",
-    checked: "Indexed today",
-    checkedZh: "今日收录",
     commit: "main · mutable source",
     commitZh: "main · 可变来源",
-    result: "No runtime receipt yet",
-    resultZh: "暂无运行时凭据",
     command: "dsh plugin --profile web add github:omdsh-dev/DSH-better-sidebar",
     testedPlatforms: [],
     sourceKind: "curated",
-    stars: 61,
+    stars: 653,
     order: 3,
   },
   {
-    slug: "dsh-cc-tui",
-    name: "dsh-cc-tui",
+    slug: "dsh-tui",
+    name: "dsh-TUI",
     description: "A full-screen terminal interface inspired by modern coding agents.",
     descriptionZh: "受现代编程智能体启发的全屏终端界面。",
     longDescription: "A terminal-first DSH interface with streaming reasoning, escape-to-rollback, context progress, TPS instrumentation, and a keyboard-focused interaction model.",
     longDescriptionZh: "以终端为核心的 DSH 界面，支持流式推理、Esc 回滚、上下文进度、TPS 指标和键盘优先交互。",
     owner: "ccch1mneyyy",
-    repo: "ccch1mneyyy/dsh-cc-tui",
+    repo: "ccch1mneyyy/dsh-TUI",
     type: "TUI",
     icon: "terminal",
     color: "#e05b16",
     compatibility: "DSH rc.6",
     revision: "npm 0.1.3",
-    status: "verified",
-    evidence: "Install & boot passed",
-    evidenceZh: "安装与启动通过",
-    scripts: "No install scripts",
-    scriptsZh: "无安装脚本",
-    checked: "Checked today",
-    checkedZh: "今日检查",
     commit: "npm sha512-f+C7…iZ6Ng==",
-    result: "Composition and interactive TUI boot passed; peer warnings recorded",
-    resultZh: "组合与交互式 TUI 启动通过；已记录 peer 依赖警告",
     command: "dsh plugin --profile tui add dsh-cc-tui@0.1.3",
     testedPlatforms: ["macOS"],
     sourceKind: "curated",
-    stars: 85,
+    stars: 790,
     order: 4,
   },
   {
@@ -142,21 +106,12 @@ const curatedPackages = [
     compatibility: "DSH Web",
     revision: "unconfirmed",
     revisionZh: "未确认",
-    status: "unverified",
-    evidence: "Not yet tested",
-    evidenceZh: "尚未测试",
-    scripts: "Static review pending",
-    scriptsZh: "等待静态审查",
-    checked: "Indexed today",
-    checkedZh: "今日收录",
     commit: "main · mutable source",
     commitZh: "main · 可变来源",
-    result: "Visual compatibility check pending",
-    resultZh: "等待视觉兼容性检查",
     command: "dsh plugin --profile web add github:Small-tailqwq/dsh-deep-whale",
     testedPlatforms: [],
     sourceKind: "curated",
-    stars: 51,
+    stars: 500,
     order: 5,
   },
   {
@@ -174,21 +129,12 @@ const curatedPackages = [
     compatibility: "DSH skills",
     revision: "branch: dot-skill",
     revisionZh: "分支：dot-skill",
-    status: "unverified",
-    evidence: "Classification pending",
-    evidenceZh: "等待分类确认",
-    scripts: "Skill content only",
-    scriptsZh: "仅技能内容",
-    checked: "Indexed today",
-    checkedZh: "今日收录",
     commit: "dot-skill · mutable branch",
     commitZh: "dot-skill · 可变分支",
-    result: "Content review pending",
-    resultZh: "等待内容审查",
     command: "dsh plugin --profile web add github:titanwings/colleague-skill#dot-skill",
     testedPlatforms: [],
     sourceKind: "curated",
-    stars: 20889,
+    stars: 21901,
     order: 6,
   },
 ];
@@ -226,12 +172,7 @@ function createTopicPackages(githubTopicCatalog) {
         color: style.color,
         compatibility: "DSH bundle",
         revision: item.version || "bundle manifest",
-        status: "unverified",
-        evidence: "Bundle structure passed",
-        scripts: item.lifecycleScripts.length ? item.lifecycleScripts.join(", ") : "No install lifecycle scripts",
-        checked: githubTopicCatalog.meta.sourceUpdatedAt,
         commit: item.headSha.slice(0, 7),
-        result: "Installability structure found; runtime verification pending",
         command: `dsh plugin --profile community add github:${item.repo}#${item.headSha}`,
         installable: true,
         testedPlatforms: [],
@@ -268,12 +209,7 @@ const discoveredPackages = awesomeCatalog.plugins
       color: style.color,
       compatibility: "",
       revision: "",
-      status: "unverified",
-      evidence: "",
-      scripts: "",
-      checked: "",
       commit: sourceRevision,
-      result: "",
       command: "",
       installable: false,
       testedPlatforms: [],
@@ -302,14 +238,50 @@ function withSearchText(item) {
 
 export const packages = [...curatedPackages, ...discoveredPackages].map(withSearchText);
 
+function repositoryMetadata(githubTopicCatalog) {
+  const metadata = [...githubTopicCatalog.plugins, ...(githubTopicCatalog.repositoryMetadata || [])];
+  return new Map(metadata.flatMap((item) => [item.repo, ...(item.aliases || [])]
+    .map((repo) => [repo.toLowerCase(), item])));
+}
+
+function enrichPackage(item, metadataByRepo) {
+  const metadata = metadataByRepo.get(item.repo.toLowerCase());
+  if (!metadata) return item;
+  return {
+    ...item,
+    repo: metadata.repo,
+    owner: metadata.repo.split("/")[0],
+    stars: metadata.stars,
+    forks: metadata.forks,
+    language: metadata.language,
+    license: metadata.license,
+    topics: metadata.topics,
+    pushedAt: metadata.pushedAt,
+    ...(metadata.headSha ? { headSha: metadata.headSha } : {}),
+    ...(metadata.bundlePatch ? { bundlePatch: metadata.bundlePatch } : {}),
+    ...(metadata.lifecycleScripts ? { lifecycleScripts: metadata.lifecycleScripts } : {}),
+  };
+}
+
+export function compareByStars(a, b) {
+  return (Number(b.stars) || 0) - (Number(a.stars) || 0)
+    || (Date.parse(b.pushedAt) || 0) - (Date.parse(a.pushedAt) || 0)
+    || a.name.localeCompare(b.name);
+}
+
 export function packagesWithGithubTopic(githubTopicCatalog) {
+  const metadataByRepo = repositoryMetadata(githubTopicCatalog);
   const topicPackages = createTopicPackages(githubTopicCatalog);
   const topicNames = new Set(topicPackages.map((item) => item.name.toLowerCase()));
   const topicRepos = new Set(topicPackages.map((item) => item.repo.toLowerCase()));
   const uniqueAwesomePackages = discoveredPackages.filter((item) => (
     !topicNames.has(item.name.toLowerCase()) && !topicRepos.has(item.repo.toLowerCase())
   ));
-  return [...curatedPackages, ...topicPackages, ...uniqueAwesomePackages].map(withSearchText);
+  return [
+    ...curatedPackages.map((item) => enrichPackage(item, metadataByRepo)),
+    ...topicPackages,
+    ...uniqueAwesomePackages.map((item) => enrichPackage(item, metadataByRepo)),
+  ].map(withSearchText);
 }
 
 export const catalogMeta = {

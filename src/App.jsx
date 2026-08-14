@@ -8,31 +8,29 @@ import { Cube } from "@phosphor-icons/react/Cube";
 import { Desktop } from "@phosphor-icons/react/Desktop";
 import { Eye } from "@phosphor-icons/react/Eye";
 import { Flask } from "@phosphor-icons/react/Flask";
-import { GitCommit } from "@phosphor-icons/react/GitCommit";
+import { GitFork } from "@phosphor-icons/react/GitFork";
 import { GithubLogo } from "@phosphor-icons/react/GithubLogo";
 import { Globe } from "@phosphor-icons/react/Globe";
 import { ListMagnifyingGlass } from "@phosphor-icons/react/ListMagnifyingGlass";
-import { LockKey } from "@phosphor-icons/react/LockKey";
 import { MagnifyingGlass } from "@phosphor-icons/react/MagnifyingGlass";
 import { Monitor } from "@phosphor-icons/react/Monitor";
 import { Moon } from "@phosphor-icons/react/Moon";
 import { Package } from "@phosphor-icons/react/Package";
 import { Plugs } from "@phosphor-icons/react/Plugs";
-import { SealCheck } from "@phosphor-icons/react/SealCheck";
 import { ShieldCheck } from "@phosphor-icons/react/ShieldCheck";
 import { Sidebar } from "@phosphor-icons/react/Sidebar";
+import { Star } from "@phosphor-icons/react/Star";
 import { Sun } from "@phosphor-icons/react/Sun";
 import { TerminalWindow } from "@phosphor-icons/react/TerminalWindow";
 import { Translate } from "@phosphor-icons/react/Translate";
 import { UsersThree } from "@phosphor-icons/react/UsersThree";
-import { Warning } from "@phosphor-icons/react/Warning";
 import { X } from "@phosphor-icons/react/X";
-import { packages, packagesWithGithubTopic } from "./data/packages.js";
+import { compareByStars, packages, packagesWithGithubTopic } from "./data/packages.js";
 import { useI18n } from "./i18n.jsx";
 
 const PAGE_SIZE = 24;
 const otherTypes = new Set(["Infrastructure", "Community", "Research", "Other"]);
-const categories = ["All", "Verified", "Plugin", "Bundle", "Skill", "Interface", "Tool", "TUI", "Skin", "Channel", "Other"];
+const categories = ["All", "Plugin", "Bundle", "Skill", "Interface", "Tool", "TUI", "Skin", "Channel", "Other"];
 const themeOptions = [
   { id: "system", labelKey: "theme.system", Icon: Desktop },
   { id: "light", labelKey: "theme.light", Icon: Sun },
@@ -87,44 +85,9 @@ function localizeDescription(item, locale, t, long = false) {
   return long ? item.longDescription : item.description;
 }
 
-function localizedEvidence(item, t, locale) {
-  if (item.sourceKind === "github-topic") {
-    return {
-      ...item,
-      compatibility: t("catalog.topicCompatibility"),
-      revision: item.version || t("catalog.topicRevision"),
-      evidence: t("catalog.topicEvidence"),
-      scripts: item.lifecycleScripts.length
-        ? t("catalog.topicScripts", { scripts: item.lifecycleScripts.join(", ") })
-        : t("catalog.topicNoScripts"),
-      checked: t("catalog.topicChecked"),
-      commit: t("catalog.topicCommit", { revision: item.commit }),
-      result: t("catalog.topicResult"),
-    };
-  }
-  if (item.sourceKind !== "awesome") {
-    if (locale !== "zh-CN") return item;
-    return {
-      ...item,
-      compatibility: item.compatibilityZh ?? item.compatibility,
-      revision: item.revisionZh ?? item.revision,
-      evidence: item.evidenceZh ?? item.evidence,
-      scripts: item.scriptsZh ?? item.scripts,
-      checked: item.checkedZh ?? item.checked,
-      commit: item.commitZh ?? item.commit,
-      result: item.resultZh ?? item.result,
-    };
-  }
-  return {
-    ...item,
-    compatibility: t("catalog.compatibility"),
-    revision: t("catalog.revision"),
-    evidence: t("catalog.evidence"),
-    scripts: t("catalog.scripts"),
-    checked: t("catalog.checked"),
-    commit: t("catalog.commit", { revision: item.commit }),
-    result: t("catalog.result"),
-  };
+function formatNumber(value, locale, compact = false) {
+  return new Intl.NumberFormat(locale, compact ? { notation: "compact", maximumFractionDigits: 1 } : undefined)
+    .format(Number(value) || 0);
 }
 
 function detectPlatform() {
@@ -231,55 +194,6 @@ function LanguagePicker() {
   );
 }
 
-function VerificationStrip({ open, setOpen }) {
-  const { t } = useI18n();
-  return (
-    <section className={open ? "verification-strip is-open" : "verification-strip"} aria-label={t("verification.title")}>
-      <button className="verification-summary" type="button" onClick={() => setOpen((value) => !value)}>
-        <span className="verification-icon"><ShieldCheck size={18} weight="fill" /></span>
-        <span><strong>{t("verification.title")}</strong> — {t("verification.summary")}</span>
-        <span className="method-link">{open ? t("verification.hide") : t("verification.show")} <CaretDown size={15} /></span>
-      </button>
-      {open ? (
-        <div className="verification-steps">
-          <span><GitCommit size={18} /> {t("verification.commit")}</span>
-          <span><LockKey size={18} /> {t("verification.install")}</span>
-          <span><TerminalWindow size={18} /> {t("verification.boot")}</span>
-          <span><SealCheck size={18} /> {t("verification.signed")}</span>
-        </div>
-      ) : null}
-    </section>
-  );
-}
-
-function Status({ status }) {
-  const { t } = useI18n();
-  const verified = status === "verified";
-  const review = status === "review";
-  const Icon = verified ? SealCheck : review ? Warning : ShieldCheck;
-  const labelKey = verified ? "status.verified" : review ? "status.review" : "status.unverified";
-  return (
-    <span className={`status status-${status}`}>
-      <Icon size={17} weight={verified ? "fill" : "regular"} /> {t(labelKey)}
-    </span>
-  );
-}
-
-function VerifiedBadge({ note }) {
-  const { t } = useI18n();
-  const explanation = note || t("verification.badge");
-  return (
-    <span
-      className="verified-badge"
-      role="img"
-      aria-label={explanation}
-      data-tooltip={explanation}
-    >
-      <SealCheck size={17} weight="fill" />
-    </span>
-  );
-}
-
 function CopyButton({ text, compact = false }) {
   const { t } = useI18n();
   const [copied, setCopied] = useState(false);
@@ -309,8 +223,8 @@ function PackageIcon({ kind, color }) {
 
 function PackageRow({ item, selected, onSelect, detectedPlatform }) {
   const { locale, t } = useI18n();
-  const display = localizedEvidence(item, t, locale);
   const description = localizeDescription(item, locale, t);
+  const exactStars = formatNumber(item.stars, locale);
 
   return (
     <article className={selected ? "package-row is-selected" : "package-row"}>
@@ -318,7 +232,7 @@ function PackageRow({ item, selected, onSelect, detectedPlatform }) {
         <span className="package-cell">
           <PackageIcon kind={item.icon} color={item.color} />
           <span className="package-copy">
-            <span className="package-title">{item.status === "verified" ? <VerifiedBadge note={item.reviewNote} /> : null}<strong>{item.name}</strong></span>
+            <span className="package-title"><strong>{item.name}</strong></span>
             <span>{description}</span>
           </span>
         </span>
@@ -327,7 +241,7 @@ function PackageRow({ item, selected, onSelect, detectedPlatform }) {
           <small>github.com/{item.repo}</small>
         </span>
         <span className="type-cell"><span className={`type-tag type-${categoryKey(item.type)}`}>{t(`category.${categoryKey(item.type)}`)}</span></span>
-        <span className="compat-cell">{display.compatibility}<small>{display.revision}</small></span>
+        <span className="stars-cell" title={`${t("table.stars")}: ${exactStars}`}><Star size={17} weight="fill" /><strong>{formatNumber(item.stars, locale, true)}</strong></span>
       </button>
       {selected ? item.installable !== false ? (
         <div className="install-row">
@@ -354,11 +268,11 @@ function PackageDrawer({ item, onClose, detectedPlatform }) {
   const { locale, t } = useI18n();
   const [reportOpen, setReportOpen] = useState(false);
   if (!item) return null;
-  const display = localizedEvidence(item, t, locale);
   const description = localizeDescription(item, locale, t, true);
-  const platformEvidence = item.testedPlatforms.length
-    ? t("platform.tested", { platforms: item.testedPlatforms.join(" · ") })
-    : t("platform.untested");
+  const lifecycleScripts = item.lifecycleScripts?.length
+    ? item.lifecycleScripts.join(", ")
+    : t("catalog.topicNoScripts");
+  const sourceRevision = item.headSha?.slice(0, 7) || item.commit || t("drawer.unavailable");
 
   return (
     <div className="drawer-backdrop" role="presentation" onMouseDown={onClose}>
@@ -375,14 +289,18 @@ function PackageDrawer({ item, onClose, detectedPlatform }) {
             <div className="drawer-command"><code>{item.command}</code><CopyButton text={item.command} compact /></div>
           </>
         ) : <div className="platform-callout"><ShieldCheck size={18} /><span><strong>{t("catalog.noInstall")}</strong></span></div>}
-        <div className="receipt-card">
-          <div className="receipt-title"><Status status={item.status} /><span>{display.checked}</span></div>
+        <div className="repository-card">
+          <div className="repository-summary">
+            <span><Star size={17} weight="fill" /> <strong>{formatNumber(item.stars, locale)}</strong> {t("drawer.stars")}</span>
+            <span><GitFork size={17} /> <strong>{formatNumber(item.forks, locale)}</strong> {t("drawer.forks")}</span>
+          </div>
           <dl>
-            <div><dt>{t("drawer.target")}</dt><dd>{display.compatibility} {display.revision}</dd></div>
-            <div><dt>{t("drawer.source")}</dt><dd>{display.commit}</dd></div>
-            <div><dt>{t("platform.evidence")}</dt><dd>{platformEvidence}</dd></div>
-            <div><dt>{t("drawer.lifecycle")}</dt><dd>{display.scripts}</dd></div>
-            <div><dt>{t("drawer.result")}</dt><dd>{display.result}</dd></div>
+            <div><dt>{t("drawer.repository")}</dt><dd>github.com/{item.repo}</dd></div>
+            <div><dt>{t("drawer.source")}</dt><dd>{sourceRevision}</dd></div>
+            {item.bundlePatch ? <div><dt>{t("drawer.bundle")}</dt><dd>{item.bundlePatch}</dd></div> : null}
+            <div><dt>{t("drawer.lifecycle")}</dt><dd>{lifecycleScripts}</dd></div>
+            <div><dt>{t("drawer.language")}</dt><dd>{item.language || t("drawer.unavailable")}</dd></div>
+            <div><dt>{t("drawer.license")}</dt><dd>{item.license || t("drawer.unavailable")}</dd></div>
           </dl>
         </div>
         <div className="drawer-actions">
@@ -512,29 +430,21 @@ export function App() {
   const [systemDark, setSystemDark] = useState(() => matchMedia("(prefers-color-scheme: dark)").matches);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
-  const [sort, setSort] = useState("recent");
+  const [sort, setSort] = useState("stars");
   const [language, setLanguage] = useState("All");
   const [page, setPage] = useState(1);
-  const [selected, setSelected] = useState(packages[0].slug);
-  const [verificationOpen, setVerificationOpen] = useState(false);
+  const [selected, setSelected] = useState(null);
   const [submitOpen, setSubmitOpen] = useState(false);
-  const [catalogReviews, setCatalogReviews] = useState([]);
   const [indexedPackages, setIndexedPackages] = useState(packages);
   const searchRef = useRef(null);
   const tableRef = useRef(null);
   const deferredQuery = useDeferredValue(query.trim().toLowerCase());
   const detectedPlatform = useMemo(detectPlatform, []);
   const effectiveTheme = theme === "system" ? (systemDark ? "dark" : "light") : theme;
-  const catalogPackages = useMemo(() => {
-    const reviewBySlug = new Map(catalogReviews.map((review) => [review.plugin_slug, review]));
-    return indexedPackages.map((item) => {
-      const review = reviewBySlug.get(item.slug);
-      return review ? { ...item, status: review.status, reviewNote: review.note || "", reviewedAt: review.updated_at } : item;
-    });
-  }, [catalogReviews, indexedPackages]);
-  const verifiedCount = useMemo(() => catalogPackages.filter((item) => item.status === "verified").length, [catalogPackages]);
-  const languages = useMemo(() => [...new Set(catalogPackages.map((item) => item.language).filter(Boolean))]
-    .toSorted((a, b) => a.localeCompare(b, locale)), [catalogPackages, locale]);
+  const installableCount = useMemo(() => indexedPackages.filter((item) => item.installable !== false).length, [indexedPackages]);
+  const totalStars = useMemo(() => indexedPackages.reduce((total, item) => total + (Number(item.stars) || 0), 0), [indexedPackages]);
+  const languages = useMemo(() => [...new Set(indexedPackages.map((item) => item.language).filter(Boolean))]
+    .toSorted((a, b) => a.localeCompare(b, locale)), [indexedPackages, locale]);
 
   useEffect(() => {
     document.documentElement.dataset.theme = effectiveTheme;
@@ -571,15 +481,6 @@ export function App() {
   }, []);
 
   useEffect(() => {
-    const controller = new AbortController();
-    fetch("/api/catalog-reviews", { headers: { Accept: "application/json" }, signal: controller.signal })
-      .then((response) => response.ok ? response.json() : Promise.reject(new Error("catalog_reviews_unavailable")))
-      .then((payload) => setCatalogReviews(Array.isArray(payload.reviews) ? payload.reviews : []))
-      .catch((error) => { if (error.name !== "AbortError") setCatalogReviews([]); });
-    return () => controller.abort();
-  }, []);
-
-  useEffect(() => {
     function handleKey(event) {
       if (event.key === "/" && !["INPUT", "TEXTAREA"].includes(document.activeElement?.tagName)) {
         event.preventDefault();
@@ -595,18 +496,18 @@ export function App() {
   }, [selected]);
 
   const filteredPackages = useMemo(() => {
-    const filtered = catalogPackages.filter((item) => {
+    const filtered = indexedPackages.filter((item) => {
       const categoryMatch = category === "All"
-        || (category === "Verified" ? item.status === "verified" : category === "Other" ? otherTypes.has(item.type) : item.type === category);
+        || (category === "Other" ? otherTypes.has(item.type) : item.type === category);
       const languageMatch = language === "All" || item.language === language;
       return categoryMatch && languageMatch && (!deferredQuery || item.searchText.includes(deferredQuery));
     });
     return filtered.toSorted((a, b) => {
-      if (sort === "stars") return b.stars - a.stars || a.order - b.order;
+      if (sort === "stars") return compareByStars(a, b);
       if (sort === "name") return a.name.localeCompare(b.name, locale);
-      return a.order - b.order;
+      return (Date.parse(b.pushedAt) || 0) - (Date.parse(a.pushedAt) || 0) || compareByStars(a, b);
     });
-  }, [catalogPackages, category, deferredQuery, language, locale, sort]);
+  }, [category, deferredQuery, indexedPackages, language, locale, sort]);
 
   const totalPages = Math.max(1, Math.ceil(filteredPackages.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
@@ -618,7 +519,7 @@ export function App() {
     requestAnimationFrame(() => tableRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
   };
   const drawerItem = typeof selected === "string" && selected.endsWith(":details")
-    ? catalogPackages.find((item) => item.slug === selected.split(":")[0])
+    ? indexedPackages.find((item) => item.slug === selected.split(":")[0])
     : null;
   return (
     <div className="app-shell">
@@ -647,14 +548,12 @@ export function App() {
               <kbd>/</kbd>
             </label>
             <div className="quick-stats">
-              <span><strong>{catalogPackages.length}</strong> {t("stats.discovered")}</span>
-              <span><strong>{verifiedCount}</strong> {t("stats.receipts")}</span>
-              <span><strong>rc.6</strong> {t("stats.target")}</span>
+              <span><strong>{indexedPackages.length}</strong> {t("stats.discovered")}</span>
+              <span><strong>{formatNumber(totalStars, locale, true)}</strong> {t("stats.stars")}</span>
+              <span><strong>{installableCount}</strong> {t("stats.installable")}</span>
             </div>
           </div>
         </section>
-
-        <VerificationStrip open={verificationOpen} setOpen={setVerificationOpen} />
 
         <section className="registry-section" id="registry">
           <div className="section-heading">
@@ -670,7 +569,7 @@ export function App() {
           </div>
 
           <div className="package-table" ref={tableRef}>
-            <div className="table-header"><span>{t("table.plugin")}</span><span>{t("table.source")}</span><span>{t("table.type")}</span><span>{t("table.compatibility")}</span></div>
+            <div className="table-header"><span>{t("table.plugin")}</span><span>{t("table.source")}</span><span>{t("table.type")}</span><span>{t("table.stars")}</span></div>
             <div className="package-list">
               {visiblePackages.length ? visiblePackages.map((item) => (
                 <PackageRow key={item.slug} item={item} selected={selected === item.slug} onSelect={setSelected} detectedPlatform={detectedPlatform} />

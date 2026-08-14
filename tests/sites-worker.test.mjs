@@ -120,18 +120,15 @@ test("requires a reason and useful details for reports", async () => {
   assert.equal(DB.inserts.length, 0);
 });
 
-test("serves catalog review overrides to the public registry", async () => {
-  const response = await worker.fetch(new Request("https://example.test/api/catalog-reviews"), {
-    DB: {
-      prepare(sql) {
-        assert.match(sql, /FROM catalog_reviews/);
-        return { all: async () => ({ results: [{ plugin_slug: "dsh-cc-tui", status: "verified", note: null }] }) };
-      },
-    },
-  });
-
-  assert.equal(response.status, 200);
-  assert.deepEqual(await response.json(), { reviews: [{ plugin_slug: "dsh-cc-tui", status: "verified", note: null }] });
+test("does not expose removed catalog certification routes", async () => {
+  for (const request of [
+    new Request("https://example.test/api/catalog-reviews"),
+    new Request("https://example.test/api/admin/catalog/example", { method: "PATCH" }),
+  ]) {
+    const response = await worker.fetch(request, {});
+    assert.equal(response.status, 404);
+    assert.deepEqual(await response.json(), { error: "not_found" });
+  }
 });
 
 test("rejects admin API requests without a Cloudflare Access assertion", async () => {
@@ -165,25 +162,11 @@ test("accepts only the configured email in a valid Cloudflare Access JWT", async
     .setExpirationTime("5m")
     .sign(privateKey);
   const DB = {
+    prepare: (sql) => ({ sql }),
     batch: async () => [
       { results: [{ id: "submission-1", status: "pending" }] },
       { results: [{ id: "report-1", status: "pending" }] },
-      { results: [{ plugin_slug: "dsh-cc-tui", status: "verified" }] },
     ],
-    prepare: (sql) => ({
-      bind: (...values) => ({
-        run: async () => ({ meta: { changes: 1 } }),
-        first: async () => ({
-          plugin_slug: values[0],
-          status: "review",
-          note: null,
-          updated_by: "admin@example.com",
-          created_at: "2026-08-14 00:00:00",
-          updated_at: "2026-08-14 00:00:00",
-        }),
-      }),
-      sql,
-    }),
   };
   const env = { DB, ADMIN_EMAIL: "admin@example.com", CF_ACCESS_AUD: audience, CF_ACCESS_ISSUER: issuer };
 
@@ -200,27 +183,7 @@ test("accepts only the configured email in a valid Cloudflare Access JWT", async
     assert.deepEqual(await allowed.json(), {
       submissions: [{ id: "submission-1", status: "pending" }],
       reports: [{ id: "report-1", status: "pending" }],
-      catalogReviews: [{ plugin_slug: "dsh-cc-tui", status: "verified" }],
       viewer: { email: "admin@example.com" },
-    });
-
-    const catalogUpdate = await worker.fetch(new Request("https://example.test/api/admin/catalog/dsh-cc-tui", {
-      method: "PATCH",
-      headers: {
-        "Cf-Access-Jwt-Assertion": await createToken("admin@example.com"),
-        "Content-Type": "application/json",
-        Origin: "https://example.test",
-      },
-      body: JSON.stringify({ status: "review" }),
-    }), env);
-    assert.equal(catalogUpdate.status, 200);
-    assert.deepEqual((await catalogUpdate.json()).review, {
-      plugin_slug: "dsh-cc-tui",
-      status: "review",
-      note: null,
-      updated_by: "admin@example.com",
-      created_at: "2026-08-14 00:00:00",
-      updated_at: "2026-08-14 00:00:00",
     });
   } finally {
     globalThis.fetch = originalFetch;

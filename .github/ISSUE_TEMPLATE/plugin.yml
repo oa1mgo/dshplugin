@@ -50,5 +50,5 @@ body:
           required: true
         - label: The project extends or supports DeepSeek Harness.
           required: true
-        - label: I understand that listing does not imply verification.
+        - label: I understand that GitHub stars and listing do not imply security, quality, or endorsement.
           required: true

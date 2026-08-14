@@ -2,7 +2,7 @@
   "name": "dshplugin",
   "version": "0.0.0",
   "private": true,
-  "description": "A community-built discovery and verification registry for DeepSeek Harness plugins.",
+  "description": "A community-built discovery index for DeepSeek Harness plugins.",
   "license": "MIT",
   "homepage": "https://dshplugin.org",
   "repository": {

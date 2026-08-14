@@ -25469,5 +25469,147 @@
         "prepare"
       ]
     }
+  ],
+  "repositoryMetadata": [
+    {
+      "repo": "titanwings/colleague-skill",
+      "stars": 21901,
+      "forks": 2043,
+      "language": "Python",
+      "license": "MIT",
+      "topics": ["agent-skills", "ai-agent", "claude-code", "codex", "dsh-plugin", "hermes-agent", "knowledge-distillation", "meta-skill", "openclaw", "skill-generator"],
+      "pushedAt": "2026-08-13T15:00:28Z",
+      "defaultBranch": "dot-skill"
+    },
+    {
+      "repo": "zhu1090093659/dsh-web-ui",
+      "stars": 1679,
+      "forks": 74,
+      "language": "TypeScript",
+      "license": "Apache-2.0",
+      "topics": ["deepseek-harness", "dsh", "dsh-plugin", "web-ui"],
+      "pushedAt": "2026-08-14T11:20:11Z",
+      "defaultBranch": "main"
+    },
+    {
+      "repo": "ccch1mneyyy/dsh-TUI",
+      "stars": 790,
+      "forks": 33,
+      "language": "TypeScript",
+      "license": "MIT",
+      "topics": ["claude-code", "coding-agent", "deepseek", "deepseek-harness", "dsh-plugin", "ink", "react", "terminal", "tui"],
+      "pushedAt": "2026-08-14T11:07:48Z",
+      "defaultBranch": "main"
+    },
+    {
+      "repo": "Small-tailqwq/dsh-deep-whale",
+      "stars": 500,
+      "forks": 18,
+      "language": "TypeScript",
+      "license": "",
+      "topics": ["dsh", "dsh-plugin"],
+      "pushedAt": "2026-08-14T13:19:33Z",
+      "defaultBranch": "main"
+    },
+    {
+      "repo": "bradeGithub/DSH-Plugins-Marketplace",
+      "stars": 28,
+      "forks": 4,
+      "language": "JavaScript",
+      "license": "MIT",
+      "topics": ["agent", "ai-agents", "cordis", "deepseek-harness", "dsh", "dsh-plugin", "javascript", "llm", "marketplace", "nodejs", "plugin", "plugin-marketplace"],
+      "pushedAt": "2026-08-14T13:31:53Z",
+      "defaultBranch": "main"
+    },
+    {
+      "repo": "vibeinging/dsh-work",
+      "stars": 25,
+      "forks": 4,
+      "language": "JavaScript",
+      "license": "MIT",
+      "topics": ["agentic-workflows", "ai-agent", "ai-workbench", "data-analysis", "deepseek-harness", "desktop-app", "dsh", "dsh-plugin", "electron", "local-first", "mcp", "model-context-protocol", "office-automation", "react", "typescript"],
+      "pushedAt": "2026-08-14T12:45:35Z",
+      "defaultBranch": "dev"
+    },
+    {
+      "repo": "chyra-moon/deepseek-harness-desktop",
+      "stars": 10,
+      "forks": 0,
+      "language": "JavaScript",
+      "license": "MIT",
+      "topics": ["ai-agent", "community-project", "deepseek", "desktop", "dsh-plugin", "electron", "windows"],
+      "pushedAt": "2026-08-14T11:07:36Z",
+      "defaultBranch": "main"
+    },
+    {
+      "repo": "PlutoKeating/dsh-lark-bot",
+      "stars": 7,
+      "forks": 0,
+      "language": "TypeScript",
+      "license": "AGPL-3.0",
+      "topics": ["bot", "bridge", "chatbot", "deepseek", "deepseek-harness", "dsh", "dsh-plugin", "feishu", "lark", "messaging", "typescript"],
+      "pushedAt": "2026-08-14T05:40:51Z",
+      "defaultBranch": "main"
+    },
+    {
+      "repo": "Tyan66666/billion-context-dsh",
+      "stars": 7,
+      "forks": 0,
+      "language": "TypeScript",
+      "license": "MIT",
+      "topics": ["acp", "billion-context", "context-management", "dsh-plugin"],
+      "pushedAt": "2026-08-14T09:56:30Z",
+      "defaultBranch": "main"
+    },
+    {
+      "repo": "william-jin-cmu/dsh-artifact",
+      "stars": 1,
+      "forks": 0,
+      "language": "TypeScript",
+      "license": "BSD-3-Clause",
+      "topics": ["dsh", "dsh-plugin"],
+      "pushedAt": "2026-08-13T02:26:38Z",
+      "defaultBranch": "main"
+    },
+    {
+      "repo": "ChenChen913/dsh-session-cleaner-cli",
+      "stars": 0,
+      "forks": 0,
+      "language": "JavaScript",
+      "license": "MIT",
+      "topics": ["cleanup", "cli", "deepseek", "deepseek-harness", "dsh", "dsh-plugin", "session-management"],
+      "pushedAt": "2026-08-14T07:43:35Z",
+      "defaultBranch": "main"
+    },
+    {
+      "repo": "junhongchashui/dsh-plugin-web-access",
+      "stars": 0,
+      "forks": 0,
+      "language": "JavaScript",
+      "license": "MIT",
+      "topics": ["cordis", "deepseek-harness", "dsh-plugin", "web-access"],
+      "pushedAt": "2026-08-14T02:35:44Z",
+      "defaultBranch": "master"
+    },
+    {
+      "repo": "Sdongmaker/vpshub",
+      "stars": 0,
+      "forks": 0,
+      "language": "JavaScript",
+      "license": "MIT",
+      "topics": ["cordis", "deepseek-harness", "dsh-plugin", "ssh", "vps"],
+      "pushedAt": "2026-08-14T13:19:47Z",
+      "defaultBranch": "main"
+    },
+    {
+      "repo": "weijiafu14/dsh-remote-sandbox",
+      "stars": 0,
+      "forks": 0,
+      "language": "TypeScript",
+      "license": "MIT",
+      "topics": ["agent", "deepseek-harness", "dsh-plugin", "e2b", "sandbox"],
+      "pushedAt": "2026-08-14T01:29:16Z",
+      "defaultBranch": "master"
+    }
   ]
 }

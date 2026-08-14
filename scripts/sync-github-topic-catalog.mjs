@@ -3,6 +3,8 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import awesomeCatalog from "../src/data/awesome-catalog.generated.json" with { type: "json" };
+import { curatedPackages } from "../src/data/packages.js";
 import { readHeadRevision } from "./github-repository-check.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -179,6 +181,24 @@ async function readRepositoryHead(repository) {
   return readHeadRevision(advertisement);
 }
 
+async function readRepositoryMetadata(repository) {
+  const response = await fetchWithRetry(`https://api.github.com/repos/${repository}`, { headers: apiHeaders });
+  if (!response.ok) throw new Error(`GitHub repository metadata failed: ${response.status} ${repository}`);
+  const payload = await response.json();
+  const canonicalRepo = payload.full_name;
+  return {
+    repo: canonicalRepo,
+    ...(canonicalRepo.toLowerCase() === repository.toLowerCase() ? {} : { aliases: [repository] }),
+    stars: payload.stargazers_count,
+    forks: payload.forks_count,
+    language: cleanText(payload.language, 40),
+    license: payload.license?.spdx_id === "NOASSERTION" ? "" : cleanText(payload.license?.spdx_id, 40),
+    topics: (payload.topics || []).map((value) => cleanText(value.toLowerCase(), 64)).filter(Boolean).sort().slice(0, 32),
+    pushedAt: payload.pushed_at,
+    defaultBranch: payload.default_branch,
+  };
+}
+
 function normalizePatchPath(value) {
   if (typeof value !== "string") return null;
   const normalized = value.trim().replace(/^\.\//, "");
@@ -274,6 +294,13 @@ const plugins = inspectionResults
   .flatMap((result) => result.plugin ? [result.plugin] : [])
   .sort((a, b) => Date.parse(b.pushedAt) - Date.parse(a.pushedAt) || b.stars - a.stars || a.repo.localeCompare(b.repo));
 const rejections = countBy(inspectionResults.filter((result) => result.rejection), "rejection");
+const topicRepositories = new Set(plugins.map((plugin) => plugin.repo.toLowerCase()));
+const supplementalRepositories = [...new Set([
+  ...curatedPackages.map((plugin) => plugin.repo),
+  ...awesomeCatalog.plugins.map((plugin) => plugin.repo),
+])].filter((repository) => !topicRepositories.has(repository.toLowerCase()));
+const repositoryMetadata = (await mapLimit(supplementalRepositories, rawConcurrency, readRepositoryMetadata))
+  .sort((a, b) => b.stars - a.stars || a.repo.localeCompare(b.repo));
 const checkedAt = new Date().toISOString();
 const output = {
   meta: {
@@ -291,6 +318,7 @@ const output = {
     total: plugins.length,
   },
   plugins,
+  repositoryMetadata,
 };
 
 try {
@@ -308,3 +336,4 @@ try {
 
 await writeFile(destination, `${JSON.stringify(output, null, 2)}\n`);
 console.log(`Accepted ${plugins.length}/${repositories.length} repositories with a root dsh.bundle.patch contract.`);
+console.log(`Refreshed stars and repository metadata for ${repositoryMetadata.length} additional catalog entries.`);

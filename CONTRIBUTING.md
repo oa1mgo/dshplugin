@@ -1,11 +1,11 @@
 # Contributing to DSHPlugin
 
-Thanks for helping make the DeepSeek Harness plugin ecosystem easier to discover and safer to explore. Contributions in English or Chinese are welcome.
+Thanks for helping make the DeepSeek Harness plugin ecosystem easier to discover and explore. Contributions in English or Chinese are welcome.
 
 ## Before you start
 
 - Search existing issues and pull requests before opening a duplicate.
-- Use an issue for changes that alter the trust model, verification meaning, catalog schema, or moderation workflow.
+- Use an issue for changes that alter discovery sources, ranking, the catalog schema, or the moderation workflow.
 - Use GitHub private vulnerability reporting for security issues; do not open a public security issue.
 - Never include credentials, personal contact details, Cloudflare identifiers, production database IDs, or copied production data.
 
@@ -16,7 +16,7 @@ npm ci
 npm run dev
 ```
 
-Run the complete verification suite before opening a pull request:
+Run the complete check suite before opening a pull request:
 
 ```bash
 npm run verify
@@ -37,8 +37,8 @@ This command performs live GitHub checks and therefore requires network access.
 - Update the snapshot with `npm run sync:catalog`.
 - Repository imports must resolve to a canonical, publicly reachable GitHub repository.
 - Automatic GitHub discovery requires a root `package.json` with `dsh.bundle.patch` pointing to a real repository file.
-- An imported repository remains unverified until DSHPlugin has its own evidence.
-- Do not mark a plugin verified merely because it appears in an external list or has a trusted maintainer.
+- GitHub stars are refreshed by the generated catalog workflow; do not hand-edit popularity values.
+- Treat stars as a discovery signal, never as a security, quality, or endorsement claim.
 - Installation commands must only be shown for entries that DSH can actually install.
 
 If you only want to propose a plugin, the plugin submission issue form is the easiest route.
@@ -66,9 +66,9 @@ Common types:
 Examples:
 
 ```text
-feat(catalog): add runtime compatibility filters
+feat(catalog): add repository language filters
 fix(links): follow canonical GitHub redirects
-docs: explain verification evidence
+docs: explain GitHub discovery sources
 ```
 
 Use `!` or a `BREAKING CHANGE:` footer for breaking changes.

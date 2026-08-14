@@ -4,20 +4,18 @@
 
 **一切皆插件。**
 
-由社区共同建设的 DeepSeek Harness 插件发现与验证广场。
+由社区共同建设的 DeepSeek Harness 插件发现索引。
 
 [打开 dshplugin.org](https://dshplugin.org) · [参与共建](CONTRIBUTING.md) · [English](README.md)
 
 </div>
-
-![DSHPlugin 插件广场](qa-home-final.png)
 
 > [!NOTE]
 > DSHPlugin 是独立的社区项目，不是 DeepSeek 官方产品，也不代表 DeepSeek 的认可或背书。
 
 ## 为什么做 DSHPlugin？
 
-DeepSeek Harness 的架构非常开放，但插件发现不应该依赖零散搜索，信任也不应该只看仓库名称。DSHPlugin 希望把插件发现、源码来源、兼容性和验证状态放进一个专注、透明的目录中。
+DeepSeek Harness 的架构非常开放，但寻找好用插件不应该依赖零散搜索。DSHPlugin 把 GitHub 发现、原仓库链接、最新 Star 数和可安装组合包信息放进一个专注的目录中。
 
 项目选择公开共建，让插件作者、DSH 用户、安全研究者和翻译贡献者都能参与改善生态。
 
@@ -29,23 +27,20 @@ DeepSeek Harness 的架构非常开放，但插件发现不应该依赖零散搜
 - 英语、简体中文、日语、韩语和西班牙语
 - 浅色、深色及跟随系统主题
 - 跨平台 DSH 安装命令
-- 从 [`awesome-dsh-plugins`](https://github.com/AdamPlatin123/awesome-dsh-plugins) 同步社区目录
-- 通过 Git smart HTTP 校验仓库，拒绝失效链接和占位仓库
-- 基于 Cloudflare D1 的插件提交、举报和审核状态闭环
+- 定时扫描 GitHub 的 [`dsh-plugin` Topic](https://github.com/topics/dsh-plugin)，并同步 [`awesome-dsh-plugins`](https://github.com/AdamPlatin123/awesome-dsh-plugins)
+- 每次扫描刷新 GitHub Star 数，并默认按 Star 排名
+- 检查根目录 `dsh.bundle.patch` 组合包声明，通过 Git smart HTTP 拒绝失效链接和占位仓库
+- 基于 Cloudflare D1 的插件提交与举报闭环
 - 使用 Cloudflare Access 保护的管理后台，并在 Worker 内再次验证 JWT
-- 基于证据的认证标识；外部导入条目不会自动获得认证
 
-## 信任模型
+## 索引规则
 
-“收录”和“认证”是两件不同的事：
+目录合并两条公开发现渠道：
 
-| 状态 | 含义 |
-| --- | --- |
-| 未认证 | 源码仓库可以公开访问，但 DSHPlugin 尚未生成验证证据。 |
-| 审核中 | 条目或证据需要人工检查。 |
-| 已认证 | 已针对不可变源码 revision 和明确的 DSH revision 记录验证证据。 |
+- 带有 [`dsh-plugin` Topic](https://github.com/topics/dsh-plugin)，且根目录存在有效 `dsh.bundle.patch` 声明的仓库；
+- [`awesome-dsh-plugins`](https://github.com/AdamPlatin123/awesome-dsh-plugins) 收录的规范公开仓库。
 
-绿色认证标识只说明某个具体版本已有验证记录，不代表对未来版本作永久保证。
+GitHub Star 只是发现与排序信号，不代表安全、质量或官方背书。DSHPlugin 始终路由到原仓库，并且只为确认存在可安装组合包结构的条目展示安装命令。
 
 ## 本地开发
 
@@ -91,10 +86,10 @@ npm run check:catalog-links
 你可以从这些方向参与：
 
 - 提交新插件或修复错误仓库链接
-- 改进认证方法和证据展示
+- 改进 GitHub 发现、元数据新鲜度与排序
 - 增加目录、API、链接与多语言测试
 - 改善无障碍、响应式体验和翻译
-- 研究插件健康度、兼容性与自动验证
+- 研究插件健康度、仓库元数据与自动化索引
 
 请先阅读 [CONTRIBUTING.md](CONTRIBUTING.md)。中文和英文 Issue/PR 都欢迎。提交信息使用 [Conventional Commits](https://www.conventionalcommits.org/)，例如 `feat: add plugin health filters` 或 `fix: reject unreachable repository redirects`。
 
@@ -102,6 +97,6 @@ npm run check:catalog-links
 
 ## 致谢与许可
 
-感谢 [`deepseek-ai/deepseek-harness`](https://github.com/deepseek-ai/deepseek-harness)、[`awesome-dsh-plugins`](https://github.com/AdamPlatin123/awesome-dsh-plugins) 以及每一位插件作者和贡献者。
+感谢 [`deepseek-ai/deepseek-harness`](https://github.com/deepseek-ai/deepseek-harness) 提供可扩展架构，以及 [`awesome-dsh-plugins`](https://github.com/AdamPlatin123/awesome-dsh-plugins) 提供社区目录来源。
 
 项目采用 [MIT License](LICENSE)。

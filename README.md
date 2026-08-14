@@ -4,7 +4,7 @@
 
 **Everything is a plugin.**
 
-A community-built discovery and verification registry for the DeepSeek Harness ecosystem.
+A community-built discovery index for the DeepSeek Harness plugin ecosystem.
 
 [Open dshplugin.org](https://dshplugin.org) · [Contributing](CONTRIBUTING.md) · [中文说明](README.zh-CN.md)
 
@@ -14,14 +14,12 @@ A community-built discovery and verification registry for the DeepSeek Harness e
 
 </div>
 
-![DSHPlugin registry](qa-home-final.png)
-
 > [!NOTE]
 > DSHPlugin is an independent community project. It is not an official DeepSeek product and is not endorsed by DeepSeek.
 
 ## Why DSHPlugin?
 
-DeepSeek Harness is intentionally extensible, but discovery should not require searching through scattered repositories or trusting a name alone. DSHPlugin brings plugin discovery, source provenance, compatibility notes, and verification state into one focused registry.
+DeepSeek Harness is intentionally extensible, but discovering useful plugins should not require searching through scattered repositories. DSHPlugin brings GitHub discovery, canonical source links, current star counts, and installable bundle metadata into one focused registry.
 
 The project is built in public so plugin authors, DSH users, security researchers, and translators can improve the ecosystem together.
 
@@ -34,23 +32,20 @@ Explore the production registry at **[dshplugin.org](https://dshplugin.org)**.
 - Light, dark, and system themes
 - Cross-platform DSH installation commands
 - Scheduled discovery from GitHub's [`dsh-plugin` topic](https://github.com/topics/dsh-plugin), plus [`awesome-dsh-plugins`](https://github.com/AdamPlatin123/awesome-dsh-plugins)
+- GitHub star counts refreshed with every scheduled scan and used as the default ranking
 - Official `dsh.bundle.patch` structure checks, canonical repository resolution, and commit-pinned install commands
 - A cached same-origin catalog proxy so scheduled index updates reach the live registry without rebuilding the Worker
-- D1-backed plugin submissions, reports, and catalog review state
+- D1-backed plugin submissions and abuse reports
 - Cloudflare Access-protected moderation UI with server-side JWT verification
-- Evidence-aware verification marks—imported entries are never automatically treated as verified
 
-## Trust model
+## Index model
 
-DSHPlugin separates *being listed* from *being verified*.
+The index combines two public discovery paths:
 
-| State | Meaning |
-| --- | --- |
-| Unverified | The source repository is publicly reachable, but DSHPlugin has not produced verification evidence. |
-| Review | The entry or its evidence needs human review. |
-| Verified | DSHPlugin has recorded verification evidence for an immutable source revision and tested DSH revision. |
+- repositories carrying the [`dsh-plugin` topic](https://github.com/topics/dsh-plugin) with a valid root `dsh.bundle.patch` declaration;
+- canonical public repositories collected by [`awesome-dsh-plugins`](https://github.com/AdamPlatin123/awesome-dsh-plugins).
 
-A green verification mark is intentionally narrow: it describes recorded evidence for a specific revision, not a permanent guarantee about future releases.
+GitHub stars are a discovery signal, not a security or quality guarantee. DSHPlugin links to the original repository and shows installation commands only when an installable bundle structure is present.
 
 ## Architecture
 
@@ -59,7 +54,7 @@ React + Vite registry
         │
 Cloudflare Worker ── static assets and API routing
         │
-Cloudflare D1 ────── submissions, reports, review state
+Cloudflare D1 ────── submissions and reports
         │
 Cloudflare Access ── /admin and /api/admin/*
 ```
@@ -95,7 +90,7 @@ Use example values locally. Never commit `.dev.vars`, `.env` files, or your real
 npm test                    # catalog and localization tests
 npm run build               # production frontend and Worker package
 npm run test:sites          # Worker API and packaging tests
-npm run verify              # complete local verification
+npm run verify              # complete local checks
 npm run check:catalog-links # live GitHub repository validation
 npm run sync:catalog        # refresh GitHub topic and Awesome DSH snapshots
 ```
@@ -119,11 +114,11 @@ Every fork must use its own Cloudflare account, database, Access policy, and ide
 There are useful contributions at every level:
 
 - Submit or correct a plugin repository
-- Improve verification methodology and evidence presentation
+- Improve GitHub discovery, metadata freshness, and ranking
 - Add tests for catalog parsing, links, API behavior, or localization
 - Improve accessibility, responsive behavior, and translations
 - Review reports and ecosystem edge cases
-- Propose reliable automation for plugin health and compatibility
+- Propose reliable automation for plugin health and repository metadata
 
 Start with a [good first issue](https://github.com/oa1mgo/dshplugin/labels/good%20first%20issue), open a proposal, or read [CONTRIBUTING.md](CONTRIBUTING.md). Chinese and English contributions are both welcome.
 
@@ -136,9 +131,7 @@ Please do not disclose vulnerabilities in a public issue. Follow [SECURITY.md](S
 ## Acknowledgements
 
 - [`deepseek-ai/deepseek-harness`](https://github.com/deepseek-ai/deepseek-harness) for the extensible Harness architecture
-- The maintainers who use the [`dsh-plugin` GitHub topic](https://github.com/topics/dsh-plugin) to make their plugins discoverable
 - [`AdamPlatin123/awesome-dsh-plugins`](https://github.com/AdamPlatin123/awesome-dsh-plugins) for the community catalog source
-- Everyone building, testing, documenting, and reviewing DSH plugins
 
 ## License
 

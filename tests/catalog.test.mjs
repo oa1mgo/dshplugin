@@ -4,7 +4,7 @@ import test from "node:test";
 
 const catalog = JSON.parse(await readFile(new URL("../src/data/awesome-catalog.generated.json", import.meta.url), "utf-8"));
 const githubTopicCatalog = JSON.parse(await readFile(new URL("../public/catalog/github-topic.generated.json", import.meta.url), "utf-8"));
-const { packagesWithGithubTopic } = await import("../src/data/packages.js");
+const { compareByStars, packagesWithGithubTopic } = await import("../src/data/packages.js");
 
 test("catalog snapshot is attributable and substantial", () => {
   assert.equal(catalog.meta.sourceRepo, "AdamPlatin123/awesome-dsh-plugins");
@@ -36,6 +36,9 @@ test("GitHub topic snapshot records a complete, filtered scan", () => {
     githubTopicCatalog.meta.discovery.accepted + githubTopicCatalog.meta.discovery.rejected,
   );
   assert.equal(githubTopicCatalog.meta.discovery.accepted, githubTopicCatalog.plugins.length);
+  assert.ok(Array.isArray(githubTopicCatalog.repositoryMetadata));
+  assert.ok(githubTopicCatalog.repositoryMetadata.length >= 10);
+  assert.ok(githubTopicCatalog.repositoryMetadata.every((repository) => Number.isInteger(repository.stars) && repository.stars >= 0));
 });
 
 test("GitHub topic entries have an immutable installable bundle contract", () => {
@@ -60,4 +63,14 @@ test("registry deduplicates sources and only claims install commands for confirm
   assert.ok(packages.filter((plugin) => plugin.sourceKind === "awesome").every((plugin) => (
     plugin.installable === false && plugin.command === ""
   )));
+});
+
+test("registry enriches every source with GitHub stars and ranks descending", () => {
+  const packages = packagesWithGithubTopic(githubTopicCatalog);
+  assert.ok(packages.every((plugin) => Number.isInteger(plugin.stars) && plugin.stars >= 0));
+  assert.equal(packages.find((plugin) => plugin.repo === "titanwings/colleague-skill").stars, 21901);
+  assert.equal(packages.find((plugin) => plugin.repo === "ccch1mneyyy/dsh-TUI").stars, 790);
+
+  const ranked = packages.toSorted(compareByStars);
+  assert.ok(ranked.every((plugin, index) => index === 0 || ranked[index - 1].stars >= plugin.stars));
 });
