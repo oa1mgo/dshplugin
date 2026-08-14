@@ -4,7 +4,7 @@ import { Cube } from "@phosphor-icons/react/Cube";
 import { MagnifyingGlass } from "@phosphor-icons/react/MagnifyingGlass";
 import { SealCheck } from "@phosphor-icons/react/SealCheck";
 import { SignOut } from "@phosphor-icons/react/SignOut";
-import { packages } from "./data/packages.js";
+import { packages, packagesWithGithubTopic } from "./data/packages.js";
 
 const statuses = ["pending", "reviewing", "resolved", "rejected"];
 const catalogStatuses = ["unverified", "review", "verified"];
@@ -23,6 +23,7 @@ export function AdminApp() {
   const [catalogQuery, setCatalogQuery] = useState("");
   const [catalogPage, setCatalogPage] = useState(1);
   const [savingSlug, setSavingSlug] = useState("");
+  const [indexedPackages, setIndexedPackages] = useState(packages);
 
   const loadRecords = useCallback(async () => {
     setLoading(true);
@@ -43,6 +44,27 @@ export function AdminApp() {
 
   useEffect(() => { void loadRecords(); }, [loadRecords]);
 
+  useEffect(() => {
+    const controller = new AbortController();
+    async function loadCatalog() {
+      for (const source of ["/api/github-catalog", "/catalog/github-topic.generated.json"]) {
+        try {
+          const response = await fetch(source, { headers: { Accept: "application/json" }, signal: controller.signal });
+          if (!response.ok) continue;
+          const payload = await response.json();
+          if (Array.isArray(payload.plugins)) return payload;
+        } catch (requestError) {
+          if (requestError.name === "AbortError") throw requestError;
+        }
+      }
+      throw new Error("github_catalog_unavailable");
+    }
+    loadCatalog()
+      .then((payload) => setIndexedPackages(packagesWithGithubTopic(payload)))
+      .catch((requestError) => { if (requestError.name !== "AbortError") setIndexedPackages(packages); });
+    return () => controller.abort();
+  }, []);
+
   const counts = useMemo(() => ({
     submissions: records.submissions.filter((item) => item.status === "pending").length,
     reports: records.reports.filter((item) => item.status === "pending").length,
@@ -50,10 +72,10 @@ export function AdminApp() {
   const catalogItems = useMemo(() => {
     const reviewBySlug = new Map(records.catalogReviews.map((review) => [review.plugin_slug, review]));
     const query = catalogQuery.trim().toLowerCase();
-    return packages
+    return indexedPackages
       .map((item) => ({ ...item, catalogReview: reviewBySlug.get(item.slug) || null }))
-      .filter((item) => !query || `${item.name} ${item.repo} ${item.owner} ${item.type}`.toLowerCase().includes(query));
-  }, [catalogQuery, records.catalogReviews]);
+      .filter((item) => !query || item.searchText.includes(query));
+  }, [catalogQuery, indexedPackages, records.catalogReviews]);
   const catalogPageCount = Math.max(1, Math.ceil(catalogItems.length / CATALOG_PAGE_SIZE));
   const currentCatalogPage = Math.min(catalogPage, catalogPageCount);
   const visibleCatalogItems = catalogItems.slice((currentCatalogPage - 1) * CATALOG_PAGE_SIZE, currentCatalogPage * CATALOG_PAGE_SIZE);
@@ -115,7 +137,7 @@ export function AdminApp() {
         <div className="admin-title"><div><p className="section-kicker">Registry operations</p><h1>内容与审核</h1></div><span>{loading ? "正在同步…" : "审核结果实时同步到公开目录"}</span></div>
         {error ? <div className="admin-error">{error}</div> : null}
         <div className="admin-tabs" role="tablist">
-          <button type="button" role="tab" aria-selected={section === "catalog"} className={section === "catalog" ? "is-active" : ""} onClick={() => setSection("catalog")}>已上架插件 <span>{packages.length}</span></button>
+          <button type="button" role="tab" aria-selected={section === "catalog"} className={section === "catalog" ? "is-active" : ""} onClick={() => setSection("catalog")}>已上架插件 <span>{indexedPackages.length}</span></button>
           <button type="button" role="tab" aria-selected={section === "reports"} className={section === "reports" ? "is-active" : ""} onClick={() => setSection("reports")}>举报 <span>{counts.reports}</span></button>
           <button type="button" role="tab" aria-selected={section === "submissions"} className={section === "submissions" ? "is-active" : ""} onClick={() => setSection("submissions")}>插件提交 <span>{counts.submissions}</span></button>
         </div>
