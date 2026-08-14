@@ -11,6 +11,7 @@ const SECURITY_HEADERS = {
 const REPORT_REASONS = new Set(["security", "broken", "misleading", "harmful", "other"]);
 const MODERATION_STATUSES = new Set(["pending", "reviewing", "resolved", "rejected"]);
 const CATALOG_REVIEW_STATUSES = new Set(["unverified", "review", "verified"]);
+const GITHUB_CATALOG_URL = "https://raw.githubusercontent.com/oa1mgo/dshplugin/main/public/catalog/github-topic.generated.json";
 const accessKeysets = new Map();
 
 function withSecurityHeaders(response) {
@@ -134,6 +135,21 @@ async function handleCatalogReviews(env) {
   return json({ reviews: result.results });
 }
 
+async function handleGithubCatalog(env) {
+  const fetcher = env.CATALOG_FETCH || fetch;
+  const upstream = await fetcher(GITHUB_CATALOG_URL, {
+    headers: { accept: "application/json", "user-agent": "dshplugin-catalog-proxy" },
+    cf: { cacheEverything: true, cacheTtl: 900 },
+  });
+  if (!upstream.ok) return json({ error: "catalog_unavailable" }, 502);
+  return withSecurityHeaders(new Response(upstream.body, {
+    headers: {
+      "Cache-Control": "public, max-age=300, s-maxage=900",
+      "Content-Type": "application/json; charset=utf-8",
+    },
+  }));
+}
+
 async function handleAdminCatalogUpdate(request, env, pluginSlug) {
   const viewer = await requireAdmin(request, env);
   if (!viewer) return json({ error: "unauthorized" }, 401);
@@ -178,12 +194,20 @@ async function handleAdminUpdate(request, env, kind, id) {
 }
 
 async function handleApi(request, env, pathname) {
-  const isKnownRoute = (request.method === "GET" && pathname === "/api/catalog-reviews")
+  const isKnownRoute = (request.method === "GET" && ["/api/catalog-reviews", "/api/github-catalog"].includes(pathname))
     || (request.method === "POST" && ["/api/submissions", "/api/reports"].includes(pathname))
     || (request.method === "GET" && pathname === "/api/admin/records")
     || (request.method === "PATCH" && /^\/api\/admin\/(submissions|reports)\/([0-9a-f-]{36})$/i.test(pathname))
     || (request.method === "PATCH" && /^\/api\/admin\/catalog\/([a-z0-9][a-z0-9-]{0,179})$/i.test(pathname));
   if (!isKnownRoute) return json({ error: "not_found" }, 404);
+  if (request.method === "GET" && pathname === "/api/github-catalog") {
+    try {
+      return await handleGithubCatalog(env);
+    } catch (error) {
+      console.error(JSON.stringify({ event: "catalog_proxy_error", message: error?.message || "unknown" }));
+      return json({ error: "catalog_unavailable" }, 502);
+    }
+  }
   if (!env.DB) return json({ error: "database_unavailable" }, 503);
   try {
     if (request.method === "GET" && pathname === "/api/catalog-reviews") return await handleCatalogReviews(env);

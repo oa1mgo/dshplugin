@@ -1,4 +1,4 @@
-import awesomeCatalog from "./awesome-catalog.generated.json";
+import awesomeCatalog from "./awesome-catalog.generated.json" with { type: "json" };
 
 const curatedPackages = [
   {
@@ -208,8 +208,52 @@ const curatedNames = new Set(curatedPackages.map((item) => item.name.toLowerCase
 const curatedRepos = new Set(curatedPackages.map((item) => item.repo.toLowerCase()));
 const sourceRevision = awesomeCatalog.meta.sourceRevision.slice(0, 7);
 
+function createTopicPackages(githubTopicCatalog) {
+  return githubTopicCatalog.plugins
+    .filter((item) => !curatedRepos.has(item.repo.toLowerCase()))
+    .map((item, index) => {
+      const style = catalogStyle.Bundle;
+      return {
+        slug: `github-${item.repo}`.toLowerCase().replace(/[^a-z0-9-]+/g, "-"),
+        name: item.name,
+        description: item.description,
+        longDescription: "",
+        version: item.version,
+        owner: item.repo.split("/")[0],
+        repo: item.repo,
+        type: "Bundle",
+        icon: style.icon,
+        color: style.color,
+        compatibility: "DSH bundle",
+        revision: item.version || "bundle manifest",
+        status: "unverified",
+        evidence: "Bundle structure passed",
+        scripts: item.lifecycleScripts.length ? item.lifecycleScripts.join(", ") : "No install lifecycle scripts",
+        checked: githubTopicCatalog.meta.sourceUpdatedAt,
+        commit: item.headSha.slice(0, 7),
+        result: "Installability structure found; runtime verification pending",
+        command: `dsh plugin --profile community add github:${item.repo}#${item.headSha}`,
+        installable: true,
+        testedPlatforms: [],
+        sourceKind: "github-topic",
+        sourceUrl: `https://github.com/${item.repo}`,
+        stars: item.stars,
+        forks: item.forks,
+        language: item.language,
+        license: item.license,
+        topics: item.topics,
+        bundlePatch: item.bundlePatch,
+        lifecycleScripts: item.lifecycleScripts,
+        pushedAt: item.pushedAt,
+        headSha: item.headSha,
+        order: 500 + index,
+      };
+    });
+}
+
 const discoveredPackages = awesomeCatalog.plugins
-  .filter((item) => !curatedNames.has(item.name.toLowerCase()) && !curatedRepos.has(item.repo.toLowerCase()))
+  .filter((item) => !curatedNames.has(item.name.toLowerCase())
+    && !curatedRepos.has(item.repo.toLowerCase()))
   .map((item, index) => {
     const style = catalogStyle[item.category] ?? catalogStyle.Other;
     return {
@@ -230,20 +274,48 @@ const discoveredPackages = awesomeCatalog.plugins
       checked: "",
       commit: sourceRevision,
       result: "",
-      command: `dsh plugin --profile community add github:${item.repo}`,
-      installable: ["Plugin", "Skill", "Bundle", "Channel"].includes(item.category),
+      command: "",
+      installable: false,
       testedPlatforms: [],
       sourceKind: "awesome",
       sourceUrl: awesomeCatalog.meta.sourceUrl,
       stars: 0,
-      order: 1000 + index,
+      order: 2000 + index,
     };
   });
 
-export const packages = [...curatedPackages, ...discoveredPackages];
+function withSearchText(item) {
+  return {
+    ...item,
+    searchText: [
+      item.name,
+      item.description,
+      item.descriptionZh,
+      item.owner,
+      item.repo,
+      item.type,
+      item.language,
+      ...(item.topics || []),
+    ].filter(Boolean).join(" ").toLowerCase(),
+  };
+}
+
+export const packages = [...curatedPackages, ...discoveredPackages].map(withSearchText);
+
+export function packagesWithGithubTopic(githubTopicCatalog) {
+  const topicPackages = createTopicPackages(githubTopicCatalog);
+  const topicNames = new Set(topicPackages.map((item) => item.name.toLowerCase()));
+  const topicRepos = new Set(topicPackages.map((item) => item.repo.toLowerCase()));
+  const uniqueAwesomePackages = discoveredPackages.filter((item) => (
+    !topicNames.has(item.name.toLowerCase()) && !topicRepos.has(item.repo.toLowerCase())
+  ));
+  return [...curatedPackages, ...topicPackages, ...uniqueAwesomePackages].map(withSearchText);
+}
 
 export const catalogMeta = {
-  ...awesomeCatalog.meta,
+  sources: {
+    awesome: awesomeCatalog.meta,
+  },
   indexedTotal: packages.length,
   discoveredTotal: discoveredPackages.length,
 };

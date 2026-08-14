@@ -61,17 +61,42 @@ function parseCatalog(markdown) {
   return [...entries.values()].sort((a, b) => a.name.localeCompare(b.name, "en"));
 }
 
+function sleep(milliseconds) {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+}
+
+async function withRetry(operation, label, attempts = 4) {
+  let lastError;
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    try {
+      return await operation();
+    } catch (error) {
+      lastError = error;
+      if (attempt === attempts) break;
+      const waitFor = 500 * 2 ** (attempt - 1);
+      console.log(`${label} failed; retrying in ${waitFor}ms.`);
+      await sleep(waitFor);
+    }
+  }
+  throw lastError;
+}
+
 async function fetchText(url) {
-  const response = await fetch(url, { headers: { "user-agent": "dshplugin-catalog-sync" } });
-  if (!response.ok) throw new Error(`Catalog fetch failed: ${response.status} ${url}`);
-  return response.text();
+  return withRetry(async () => {
+    const response = await fetch(url, { headers: { "user-agent": "dshplugin-catalog-sync" } });
+    if (!response.ok) throw new Error(`Catalog fetch failed: ${response.status} ${url}`);
+    return response.text();
+  }, `Catalog fetch ${url}`);
 }
 
 const checkedAt = new Date().toISOString();
 const markdown = await fetchText(catalogUrl);
 const candidates = parseCatalog(markdown);
 const validationResults = await Promise.all(
-  candidates.map(async (plugin) => ({ plugin, check: await fetchGitAdvertisement(plugin.repo) })),
+  candidates.map(async (plugin) => ({
+    plugin,
+    check: await withRetry(() => fetchGitAdvertisement(plugin.repo), `Repository check ${plugin.repo}`),
+  })),
 );
 const validatedPlugins = validationResults
   .filter(({ check }) => check.exists)
@@ -92,7 +117,10 @@ const rejectedRepositories = validationResults
   .filter(({ check }) => !check.exists)
   .map(({ plugin }) => plugin.repo);
 
-const sourceAdvertisement = await fetchGitAdvertisement(sourceRepo);
+const sourceAdvertisement = await withRetry(
+  () => fetchGitAdvertisement(sourceRepo),
+  `Source revision check ${sourceRepo}`,
+);
 const revision = readHeadRevision(sourceAdvertisement.text);
 if (!revision) throw new Error(`Could not resolve source revision for ${sourceRepo}`);
 

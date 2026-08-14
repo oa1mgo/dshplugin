@@ -1,0 +1,49 @@
+name: Sync catalog
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */6 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: catalog-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Discover and validate plugins
+        run: npm run sync:catalog
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Verify generated site
+        run: npm run verify
+      - name: Detect catalog changes
+        id: changes
+        run: |
+          if git diff --quiet -- src/data/awesome-catalog.generated.json public/catalog/github-topic.generated.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Commit refreshed index
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/awesome-catalog.generated.json public/catalog/github-topic.generated.json
+          git commit -m "chore(catalog): refresh plugin index"
+          git push

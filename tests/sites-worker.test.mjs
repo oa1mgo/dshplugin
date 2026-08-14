@@ -64,6 +64,23 @@ test("does not turn missing API or write requests into the app shell", async () 
   }
 });
 
+test("proxies the latest generated catalog without requiring D1", async () => {
+  const calls = [];
+  const payload = { meta: { topic: "dsh-plugin" }, plugins: [{ repo: "owner/plugin" }] };
+  const response = await worker.fetch(new Request("https://example.test/api/github-catalog"), {
+    CATALOG_FETCH: async (url, options) => {
+      calls.push({ url, options });
+      return Response.json(payload);
+    },
+  });
+
+  assert.equal(response.status, 200);
+  assert.deepEqual(await response.json(), payload);
+  assert.equal(calls[0].url, "https://raw.githubusercontent.com/oa1mgo/dshplugin/main/public/catalog/github-topic.generated.json");
+  assert.equal(calls[0].options.cf.cacheTtl, 900);
+  assert.match(response.headers.get("cache-control"), /s-maxage=900/);
+});
+
 function createDatabaseMock() {
   const inserts = [];
   return {

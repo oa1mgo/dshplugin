@@ -33,8 +33,10 @@ This command performs live GitHub checks and therefore requires network access.
 ## Working with the catalog
 
 - `src/data/awesome-catalog.generated.json` is generated. Do not hand-edit it.
+- `public/catalog/github-topic.generated.json` is generated from public repositories carrying the `dsh-plugin` topic. Do not hand-edit it.
 - Update the snapshot with `npm run sync:catalog`.
 - Repository imports must resolve to a canonical, publicly reachable GitHub repository.
+- Automatic GitHub discovery requires a root `package.json` with `dsh.bundle.patch` pointing to a real repository file.
 - An imported repository remains unverified until DSHPlugin has its own evidence.
 - Do not mark a plugin verified merely because it appears in an external list or has a trusted maintainer.
 - Installation commands must only be shown for entries that DSH can actually install.

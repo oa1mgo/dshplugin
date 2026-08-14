@@ -27,7 +27,7 @@ import { Translate } from "@phosphor-icons/react/Translate";
 import { UsersThree } from "@phosphor-icons/react/UsersThree";
 import { Warning } from "@phosphor-icons/react/Warning";
 import { X } from "@phosphor-icons/react/X";
-import { packages } from "./data/packages.js";
+import { packages, packagesWithGithubTopic } from "./data/packages.js";
 import { useI18n } from "./i18n.jsx";
 
 const PAGE_SIZE = 24;
@@ -75,6 +75,10 @@ function categoryKey(type) {
 }
 
 function localizeDescription(item, locale, t, long = false) {
+  if (item.sourceKind === "github-topic") {
+    if (long) return t("catalog.topicLongDescription");
+    return item.description || t("catalog.descriptionFallback");
+  }
   if (item.sourceKind === "awesome") {
     if (long) return t("catalog.longDescription");
     return item.description || t("catalog.descriptionFallback");
@@ -84,6 +88,20 @@ function localizeDescription(item, locale, t, long = false) {
 }
 
 function localizedEvidence(item, t, locale) {
+  if (item.sourceKind === "github-topic") {
+    return {
+      ...item,
+      compatibility: t("catalog.topicCompatibility"),
+      revision: item.version || t("catalog.topicRevision"),
+      evidence: t("catalog.topicEvidence"),
+      scripts: item.lifecycleScripts.length
+        ? t("catalog.topicScripts", { scripts: item.lifecycleScripts.join(", ") })
+        : t("catalog.topicNoScripts"),
+      checked: t("catalog.topicChecked"),
+      commit: t("catalog.topicCommit", { revision: item.commit }),
+      result: t("catalog.topicResult"),
+    };
+  }
   if (item.sourceKind !== "awesome") {
     if (locale !== "zh-CN") return item;
     return {
@@ -495,11 +513,13 @@ export function App() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
   const [sort, setSort] = useState("recent");
+  const [language, setLanguage] = useState("All");
   const [page, setPage] = useState(1);
   const [selected, setSelected] = useState(packages[0].slug);
   const [verificationOpen, setVerificationOpen] = useState(false);
   const [submitOpen, setSubmitOpen] = useState(false);
   const [catalogReviews, setCatalogReviews] = useState([]);
+  const [indexedPackages, setIndexedPackages] = useState(packages);
   const searchRef = useRef(null);
   const tableRef = useRef(null);
   const deferredQuery = useDeferredValue(query.trim().toLowerCase());
@@ -507,12 +527,14 @@ export function App() {
   const effectiveTheme = theme === "system" ? (systemDark ? "dark" : "light") : theme;
   const catalogPackages = useMemo(() => {
     const reviewBySlug = new Map(catalogReviews.map((review) => [review.plugin_slug, review]));
-    return packages.map((item) => {
+    return indexedPackages.map((item) => {
       const review = reviewBySlug.get(item.slug);
       return review ? { ...item, status: review.status, reviewNote: review.note || "", reviewedAt: review.updated_at } : item;
     });
-  }, [catalogReviews]);
+  }, [catalogReviews, indexedPackages]);
   const verifiedCount = useMemo(() => catalogPackages.filter((item) => item.status === "verified").length, [catalogPackages]);
+  const languages = useMemo(() => [...new Set(catalogPackages.map((item) => item.language).filter(Boolean))]
+    .toSorted((a, b) => a.localeCompare(b, locale)), [catalogPackages, locale]);
 
   useEffect(() => {
     document.documentElement.dataset.theme = effectiveTheme;
@@ -525,6 +547,27 @@ export function App() {
     const update = (event) => setSystemDark(event.matches);
     media.addEventListener("change", update);
     return () => media.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    async function loadCatalog() {
+      for (const source of ["/api/github-catalog", "/catalog/github-topic.generated.json"]) {
+        try {
+          const response = await fetch(source, { headers: { Accept: "application/json" }, signal: controller.signal });
+          if (!response.ok) continue;
+          const payload = await response.json();
+          if (Array.isArray(payload.plugins)) return payload;
+        } catch (error) {
+          if (error.name === "AbortError") throw error;
+        }
+      }
+      throw new Error("github_catalog_unavailable");
+    }
+    loadCatalog()
+      .then((payload) => setIndexedPackages(packagesWithGithubTopic(payload)))
+      .catch((error) => { if (error.name !== "AbortError") setIndexedPackages(packages); });
+    return () => controller.abort();
   }, []);
 
   useEffect(() => {
@@ -555,15 +598,15 @@ export function App() {
     const filtered = catalogPackages.filter((item) => {
       const categoryMatch = category === "All"
         || (category === "Verified" ? item.status === "verified" : category === "Other" ? otherTypes.has(item.type) : item.type === category);
-      const text = `${item.name} ${item.description} ${item.descriptionZh ?? ""} ${item.owner} ${item.type}`.toLowerCase();
-      return categoryMatch && (!deferredQuery || text.includes(deferredQuery));
+      const languageMatch = language === "All" || item.language === language;
+      return categoryMatch && languageMatch && (!deferredQuery || item.searchText.includes(deferredQuery));
     });
     return filtered.toSorted((a, b) => {
       if (sort === "stars") return b.stars - a.stars || a.order - b.order;
       if (sort === "name") return a.name.localeCompare(b.name, locale);
       return a.order - b.order;
     });
-  }, [catalogPackages, category, deferredQuery, locale, sort]);
+  }, [catalogPackages, category, deferredQuery, language, locale, sort]);
 
   const totalPages = Math.max(1, Math.ceil(filteredPackages.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
@@ -616,7 +659,10 @@ export function App() {
         <section className="registry-section" id="registry">
           <div className="section-heading">
             <div><span className="section-kicker">{t("registry.kicker")}</span><h2>{t("registry.title")}</h2></div>
-            <label className="sort-control">{t("registry.sort")} <select value={sort} onChange={(event) => { setSort(event.target.value); setPage(1); }}><option value="recent">{t("registry.recent")}</option><option value="stars">{t("registry.stars")}</option><option value="name">{t("registry.name")}</option></select><CaretDown size={15} /></label>
+            <div className="registry-controls">
+              <label className="sort-control">{t("registry.language")} <select value={language} onChange={(event) => { setLanguage(event.target.value); setPage(1); }}><option value="All">{t("registry.allLanguages")}</option>{languages.map((item) => <option value={item} key={item}>{item}</option>)}</select><CaretDown size={15} /></label>
+              <label className="sort-control">{t("registry.sort")} <select value={sort} onChange={(event) => { setSort(event.target.value); setPage(1); }}><option value="recent">{t("registry.recent")}</option><option value="stars">{t("registry.stars")}</option><option value="name">{t("registry.name")}</option></select><CaretDown size={15} /></label>
+            </div>
           </div>
 
           <div className="category-tabs" aria-label={t("registry.title")}>
@@ -629,7 +675,7 @@ export function App() {
               {visiblePackages.length ? visiblePackages.map((item) => (
                 <PackageRow key={item.slug} item={item} selected={selected === item.slug} onSelect={setSelected} detectedPlatform={detectedPlatform} />
               )) : (
-                <div className="empty-state"><ListMagnifyingGlass size={32} /><strong>{t("empty.title")}</strong><span>{t("empty.description")}</span><button type="button" onClick={() => { setQuery(""); setCategory("All"); setPage(1); }}>{t("empty.clear")}</button></div>
+                <div className="empty-state"><ListMagnifyingGlass size={32} /><strong>{t("empty.title")}</strong><span>{t("empty.description")}</span><button type="button" onClick={() => { setQuery(""); setCategory("All"); setLanguage("All"); setPage(1); }}>{t("empty.clear")}</button></div>
               )}
             </div>
           </div>

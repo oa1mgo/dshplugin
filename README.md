@@ -33,8 +33,9 @@ Explore the production registry at **[dshplugin.org](https://dshplugin.org)**.
 - English, Simplified Chinese, Japanese, Korean, and Spanish interfaces
 - Light, dark, and system themes
 - Cross-platform DSH installation commands
-- Catalog synchronization from [`awesome-dsh-plugins`](https://github.com/AdamPlatin123/awesome-dsh-plugins)
-- Git smart-HTTP validation that rejects missing or redirected repository placeholders
+- Scheduled discovery from GitHub's [`dsh-plugin` topic](https://github.com/topics/dsh-plugin), plus [`awesome-dsh-plugins`](https://github.com/AdamPlatin123/awesome-dsh-plugins)
+- Official `dsh.bundle.patch` structure checks, canonical repository resolution, and commit-pinned install commands
+- A cached same-origin catalog proxy so scheduled index updates reach the live registry without rebuilding the Worker
 - D1-backed plugin submissions, reports, and catalog review state
 - Cloudflare Access-protected moderation UI with server-side JWT verification
 - Evidence-aware verification marks—imported entries are never automatically treated as verified
@@ -96,7 +97,7 @@ npm run build               # production frontend and Worker package
 npm run test:sites          # Worker API and packaging tests
 npm run verify              # complete local verification
 npm run check:catalog-links # live GitHub repository validation
-npm run sync:catalog        # refresh the upstream catalog snapshot
+npm run sync:catalog        # refresh GitHub topic and Awesome DSH snapshots
 ```
 
 ## Deploying your own instance
@@ -135,6 +136,7 @@ Please do not disclose vulnerabilities in a public issue. Follow [SECURITY.md](S
 ## Acknowledgements
 
 - [`deepseek-ai/deepseek-harness`](https://github.com/deepseek-ai/deepseek-harness) for the extensible Harness architecture
+- The maintainers who use the [`dsh-plugin` GitHub topic](https://github.com/topics/dsh-plugin) to make their plugins discoverable
 - [`AdamPlatin123/awesome-dsh-plugins`](https://github.com/AdamPlatin123/awesome-dsh-plugins) for the community catalog source
 - Everyone building, testing, documenting, and reviewing DSH plugins
 
