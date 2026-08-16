@@ -20,7 +20,7 @@ const apiHeaders = {
 };
 const starSlices = [">=100", "10..99", "5..9", "1..4", "0"];
 const rawConcurrency = 16;
-const oldestGitHubDate = "2008-01-01";
+const oldestGitHubTimestamp = Date.parse("2008-01-01T00:00:00Z");
 
 function sleep(milliseconds) {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -76,24 +76,8 @@ async function fetchSearchPage(query, page) {
   return payload;
 }
 
-function isoDay(value) {
-  return new Date(`${value}T00:00:00.000Z`);
-}
-
-function formatDay(value) {
-  return value.toISOString().slice(0, 10);
-}
-
-function nextDay(value) {
-  const date = isoDay(value);
-  date.setUTCDate(date.getUTCDate() + 1);
-  return formatDay(date);
-}
-
-function midpointDay(start, end) {
-  const startTime = isoDay(start).getTime();
-  const endTime = isoDay(end).getTime();
-  return formatDay(new Date(startTime + Math.floor((endTime - startTime) / 2)));
+function formatSearchTimestamp(value) {
+  return new Date(value).toISOString().replace(".000Z", "Z");
 }
 
 async function searchSlice(stars, createdStart, createdEnd) {
@@ -107,15 +91,14 @@ async function searchSlice(stars, createdStart, createdEnd) {
   const firstPage = await fetchSearchPage(query, 1);
 
   if (firstPage.total_count > 1000) {
-    const start = createdStart || oldestGitHubDate;
-    const end = createdEnd || new Date().toISOString().slice(0, 10);
-    if (start === end) {
+    const start = createdStart ? Date.parse(createdStart) : oldestGitHubTimestamp;
+    const end = createdEnd ? Date.parse(createdEnd) : Math.floor(Date.now() / 1000) * 1000;
+    if (!Number.isFinite(start) || !Number.isFinite(end) || start >= end) {
       throw new Error(`More than 1,000 repositories share the same search partition: ${query}`);
     }
-    const midpoint = midpointDay(start, end);
-    const rightStart = nextDay(midpoint);
-    const left = await searchSlice(stars, start, midpoint);
-    const right = await searchSlice(stars, rightStart, end);
+    const midpoint = start + Math.floor((end - start) / 2000) * 1000;
+    const left = await searchSlice(stars, formatSearchTimestamp(start), formatSearchTimestamp(midpoint));
+    const right = await searchSlice(stars, formatSearchTimestamp(midpoint + 1000), formatSearchTimestamp(end));
     return [...left, ...right];
   }
 

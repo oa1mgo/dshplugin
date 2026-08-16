@@ -67,9 +67,17 @@ test("registry deduplicates sources and only claims install commands for confirm
 
 test("registry enriches every source with GitHub stars and ranks descending", () => {
   const packages = packagesWithGithubTopic(githubTopicCatalog);
+  const metadataByRepo = new Map([
+    ...githubTopicCatalog.plugins,
+    ...githubTopicCatalog.repositoryMetadata,
+  ].flatMap((repository) => [repository.repo, ...(repository.aliases || [])]
+    .map((repo) => [repo.toLowerCase(), repository])));
+
   assert.ok(packages.every((plugin) => Number.isInteger(plugin.stars) && plugin.stars >= 0));
-  assert.equal(packages.find((plugin) => plugin.repo === "titanwings/colleague-skill").stars, 21901);
-  assert.equal(packages.find((plugin) => plugin.repo === "ccch1mneyyy/dsh-TUI").stars, 790);
+  assert.ok(packages.every((plugin) => metadataByRepo.has(plugin.repo.toLowerCase())));
+  assert.ok(packages.every((plugin) => (
+    plugin.stars === metadataByRepo.get(plugin.repo.toLowerCase()).stars
+  )));
 
   const ranked = packages.toSorted(compareByStars);
   assert.ok(ranked.every((plugin, index) => index === 0 || ranked[index - 1].stars >= plugin.stars));
