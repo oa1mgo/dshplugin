@@ -631,6 +631,8 @@ export function App() {
           </div>
         </section>
 
+        <AgentSkillsSection />
+
         <section className="registry-section" id="registry">
           <div className="section-heading">
             <div><span className="section-kicker">{t("registry.kicker")}</span><h2>{t("registry.title")}</h2></div>
@@ -665,8 +667,6 @@ export function App() {
             </div>
           ) : null}
         </section>
-
-        <AgentSkillsSection />
 
         <section className="publisher-band">
           <div><span className="section-kicker">{t("publisher.kicker")}</span><h2>{t("publisher.title")}</h2><p>{t("publisher.description")}</p></div>
