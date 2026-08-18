@@ -1,4 +1,5 @@
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
+import { ArrowLeft } from "@phosphor-icons/react/ArrowLeft";
 import { ArrowRight } from "@phosphor-icons/react/ArrowRight";
 import { Bell } from "@phosphor-icons/react/Bell";
 import { CaretDown } from "@phosphor-icons/react/CaretDown";
@@ -27,6 +28,7 @@ import { UsersThree } from "@phosphor-icons/react/UsersThree";
 import { X } from "@phosphor-icons/react/X";
 import { compareByStars, packages, packagesWithGithubTopic } from "./data/packages.js";
 import { useI18n } from "./i18n.jsx";
+import { createSearchHref, isSearchPath, normalizeSearchQuery, readSearchQuery } from "./search-route.js";
 
 const PAGE_SIZE = 24;
 const otherTypes = new Set(["Infrastructure", "Community", "Research", "Other"]);
@@ -205,6 +207,35 @@ function LanguagePicker() {
         </div>
       ) : null}
     </div>
+  );
+}
+
+function SearchForm({ inputRef, query, onQueryChange, onSubmit, className = "" }) {
+  const { t } = useI18n();
+
+  return (
+    <form className={`search-form ${className}`.trim()} role="search" onSubmit={onSubmit}>
+      <label className="search-box">
+        <MagnifyingGlass size={21} />
+        <input
+          ref={inputRef}
+          value={query}
+          onChange={(event) => onQueryChange(event.target.value)}
+          onKeyDown={(event) => {
+            if (event.key !== "Enter") return;
+            event.preventDefault();
+            event.currentTarget.form?.requestSubmit();
+          }}
+          placeholder={t("search.placeholder")}
+          maxLength={200}
+          enterKeyHint="search"
+        />
+        <kbd>/</kbd>
+      </label>
+      <button className="primary-button search-submit" type="submit">
+        {t("search.action")} <ArrowRight size={17} />
+      </button>
+    </form>
   );
 }
 
@@ -504,7 +535,9 @@ export function App() {
   const { locale, t } = useI18n();
   const [theme, setTheme] = useState(readStoredTheme);
   const [systemDark, setSystemDark] = useState(() => matchMedia("(prefers-color-scheme: dark)").matches);
-  const [query, setQuery] = useState("");
+  const [searchPage, setSearchPage] = useState(() => isSearchPath(window.location.pathname));
+  const [query, setQuery] = useState(() => isSearchPath(window.location.pathname) ? readSearchQuery(window.location.search) : "");
+  const [submittedQuery, setSubmittedQuery] = useState(() => isSearchPath(window.location.pathname) ? readSearchQuery(window.location.search) : "");
   const [category, setCategory] = useState("All");
   const [sort, setSort] = useState("stars");
   const [language, setLanguage] = useState("All");
@@ -514,7 +547,7 @@ export function App() {
   const [indexedPackages, setIndexedPackages] = useState(packages);
   const searchRef = useRef(null);
   const tableRef = useRef(null);
-  const deferredQuery = useDeferredValue(query.trim().toLowerCase());
+  const deferredQuery = useDeferredValue(searchPage ? submittedQuery.toLowerCase() : "");
   const detectedPlatform = useMemo(detectPlatform, []);
   const effectiveTheme = theme === "system" ? (systemDark ? "dark" : "light") : theme;
   const installableCount = useMemo(() => indexedPackages.filter((item) => item.installable !== false).length, [indexedPackages]);
@@ -534,6 +567,30 @@ export function App() {
     media.addEventListener("change", update);
     return () => media.removeEventListener("change", update);
   }, []);
+
+  useEffect(() => {
+    function syncSearchRoute() {
+      const nextSearchPage = isSearchPath(window.location.pathname);
+      const nextQuery = nextSearchPage ? readSearchQuery(window.location.search) : "";
+      setSearchPage(nextSearchPage);
+      setQuery(nextQuery);
+      setSubmittedQuery(nextQuery);
+      setCategory("All");
+      setLanguage("All");
+      setPage(1);
+      setSelected(null);
+      window.scrollTo({ top: 0 });
+    }
+
+    window.addEventListener("popstate", syncSearchRoute);
+    return () => window.removeEventListener("popstate", syncSearchRoute);
+  }, []);
+
+  useEffect(() => {
+    document.title = searchPage
+      ? t("search.metaTitle", { query: submittedQuery || t("search.allTitle") })
+      : t("meta.title");
+  }, [locale, searchPage, submittedQuery, t]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -597,10 +654,41 @@ export function App() {
   const drawerItem = typeof selected === "string" && selected.endsWith(":details")
     ? indexedPackages.find((item) => item.slug === selected.split(":")[0])
     : null;
+
+  function submitSearch(event) {
+    event.preventDefault();
+    const nextQuery = normalizeSearchQuery(query);
+    if (!nextQuery) {
+      searchRef.current?.focus();
+      return;
+    }
+    const href = createSearchHref(nextQuery);
+    if (`${window.location.pathname}${window.location.search}` !== href) {
+      window.history.pushState({ dshpluginSearch: nextQuery }, "", href);
+    }
+    setSearchPage(true);
+    setQuery(nextQuery);
+    setSubmittedQuery(nextQuery);
+    setCategory("All");
+    setLanguage("All");
+    setPage(1);
+    setSelected(null);
+    window.scrollTo({ top: 0 });
+  }
+
+  function clearFilters() {
+    setQuery("");
+    setSubmittedQuery("");
+    setCategory("All");
+    setLanguage("All");
+    setPage(1);
+    if (searchPage) window.history.replaceState({}, "", "/search");
+  }
+
   return (
     <div className="app-shell">
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="DSHPlugin home"><Cube size={31} weight="duotone" /><strong>DSHPlugin</strong></a>
+        <a className="brand" href="/" aria-label="DSHPlugin home"><Cube size={31} weight="duotone" /><strong>DSHPlugin</strong></a>
         <div className="header-actions">
           <button className="icon-button desktop-search" type="button" aria-label={t("search.placeholder")} onClick={() => searchRef.current?.focus()}><MagnifyingGlass size={21} /></button>
           <a className="icon-button" href="https://github.com/deepseek-ai/deepseek-harness" target="_blank" rel="noreferrer" aria-label="DeepSeek Harness on GitHub"><GithubLogo size={23} weight="fill" /></a>
@@ -610,32 +698,50 @@ export function App() {
         </div>
       </header>
 
-      <main id="top">
-        <section className="hero">
-          <div className="hero-copy">
-            <span className="eyebrow">{t("hero.eyebrow")}</span>
-            <h1>{t("hero.title.before")}<br /><em>{t("hero.title.emphasis")}</em></h1>
-            <p>{t("hero.description")}</p>
-          </div>
-          <div className="hero-search">
-            <label className="search-box">
-              <MagnifyingGlass size={21} />
-              <input ref={searchRef} value={query} onChange={(event) => { setQuery(event.target.value); setPage(1); }} placeholder={t("search.placeholder")} />
-              <kbd>/</kbd>
-            </label>
-            <div className="quick-stats">
-              <span><strong>{indexedPackages.length}</strong> {t("stats.discovered")}</span>
-              <span><strong>{formatNumber(totalStars, locale, true)}</strong> {t("stats.stars")}</span>
-              <span><strong>{installableCount}</strong> {t("stats.installable")}</span>
+      <main id="top" className={searchPage ? "search-page" : undefined}>
+        {searchPage ? (
+          <section className="search-page-hero">
+            <a className="search-back" href="/"><ArrowLeft size={16} /> {t("search.back")}</a>
+            <div className="search-page-copy">
+              <h1>{t("search.pageTitle")}</h1>
+              <p>{t("search.pageDescription")}</p>
             </div>
-          </div>
-        </section>
+            <SearchForm inputRef={searchRef} query={query} onQueryChange={setQuery} onSubmit={submitSearch} className="search-page-form" />
+          </section>
+        ) : (
+          <>
+            <section className="hero">
+              <div className="hero-copy">
+                <span className="eyebrow">{t("hero.eyebrow")}</span>
+                <h1>{t("hero.title.before")}<br /><em>{t("hero.title.emphasis")}</em></h1>
+                <p>{t("hero.description")}</p>
+              </div>
+              <div className="hero-search">
+                <SearchForm inputRef={searchRef} query={query} onQueryChange={setQuery} onSubmit={submitSearch} />
+                <div className="quick-stats">
+                  <span><strong>{indexedPackages.length}</strong> {t("stats.discovered")}</span>
+                  <span><strong>{formatNumber(totalStars, locale, true)}</strong> {t("stats.stars")}</span>
+                  <span><strong>{installableCount}</strong> {t("stats.installable")}</span>
+                </div>
+              </div>
+            </section>
 
-        <AgentSkillsSection />
+            <AgentSkillsSection />
+          </>
+        )}
 
-        <section className="registry-section" id="registry">
+        <section className={searchPage ? "registry-section search-results-section" : "registry-section"} id="registry">
           <div className="section-heading">
-            <div><span className="section-kicker">{t("registry.kicker")}</span><h2>{t("registry.title")}</h2></div>
+            <div>
+              <span className="section-kicker">
+                {searchPage ? t("search.resultsKicker", { total: filteredPackages.length }) : t("registry.kicker")}
+              </span>
+              <h2>
+                {searchPage
+                  ? submittedQuery ? t("search.resultsTitle", { query: submittedQuery }) : t("search.allTitle")
+                  : t("registry.title")}
+              </h2>
+            </div>
             <div className="registry-controls">
               <label className="sort-control">{t("registry.language")} <select value={language} onChange={(event) => { setLanguage(event.target.value); setPage(1); }}><option value="All">{t("registry.allLanguages")}</option>{languages.map((item) => <option value={item} key={item}>{item}</option>)}</select><CaretDown size={15} /></label>
               <label className="sort-control">{t("registry.sort")} <select value={sort} onChange={(event) => { setSort(event.target.value); setPage(1); }}><option value="recent">{t("registry.recent")}</option><option value="stars">{t("registry.stars")}</option><option value="name">{t("registry.name")}</option></select><CaretDown size={15} /></label>
@@ -652,7 +758,7 @@ export function App() {
               {visiblePackages.length ? visiblePackages.map((item) => (
                 <PackageRow key={item.slug} item={item} selected={selected === item.slug} onSelect={setSelected} detectedPlatform={detectedPlatform} />
               )) : (
-                <div className="empty-state"><ListMagnifyingGlass size={32} /><strong>{t("empty.title")}</strong><span>{t("empty.description")}</span><button type="button" onClick={() => { setQuery(""); setCategory("All"); setLanguage("All"); setPage(1); }}>{t("empty.clear")}</button></div>
+                <div className="empty-state"><ListMagnifyingGlass size={32} /><strong>{t("empty.title")}</strong><span>{t("empty.description")}</span><button type="button" onClick={clearFilters}>{t("empty.clear")}</button></div>
               )}
             </div>
           </div>
@@ -668,13 +774,15 @@ export function App() {
           ) : null}
         </section>
 
-        <section className="publisher-band">
-          <div><span className="section-kicker">{t("publisher.kicker")}</span><h2>{t("publisher.title")}</h2><p>{t("publisher.description")}</p></div>
-          <button className="inverse-button" type="button" onClick={() => setSubmitOpen(true)}>{t("publisher.action")} <ArrowRight size={17} /></button>
-        </section>
+        {searchPage ? null : (
+          <section className="publisher-band">
+            <div><span className="section-kicker">{t("publisher.kicker")}</span><h2>{t("publisher.title")}</h2><p>{t("publisher.description")}</p></div>
+            <button className="inverse-button" type="button" onClick={() => setSubmitOpen(true)}>{t("publisher.action")} <ArrowRight size={17} /></button>
+          </section>
+        )}
       </main>
 
-      <footer><a className="brand footer-brand" href="#top"><Cube size={23} weight="duotone" /><strong>DSHPlugin</strong></a><p>{t("footer.description")}</p><div><a href="https://github.com/deepseek-ai/deepseek-harness" target="_blank" rel="noreferrer">DSH</a><a href="#registry">{t("nav.browse")}</a></div></footer>
+      <footer><a className="brand footer-brand" href="/"><Cube size={23} weight="duotone" /><strong>DSHPlugin</strong></a><p>{t("footer.description")}</p><div><a href="https://github.com/deepseek-ai/deepseek-harness" target="_blank" rel="noreferrer">DSH</a><a href={searchPage ? "/#registry" : "#registry"}>{t("nav.browse")}</a></div></footer>
 
       <PackageDrawer item={drawerItem} onClose={() => setSelected(drawerItem?.slug ?? null)} detectedPlatform={detectedPlatform} />
       {submitOpen ? <SubmitDialog onClose={() => setSubmitOpen(false)} /> : null}

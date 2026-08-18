@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { LANGUAGE_STORAGE_KEY, SUPPORTED_LANGUAGE_CODES, resolveSupportedLanguage, translate } from "./i18n-core.js";
+import { isSearchPath, readSearchQuery } from "./search-route.js";
 
 const I18nContext = createContext(null);
 const supportedChoices = new Set(["system", ...SUPPORTED_LANGUAGE_CODES]);
@@ -28,7 +29,13 @@ export function I18nProvider({ children }) {
     localStorage.setItem(LANGUAGE_STORAGE_KEY, languageChoice);
     document.documentElement.lang = locale;
     const isAdmin = window.location.pathname.startsWith("/admin");
-    document.title = isAdmin ? "DSHPlugin — 管理后台" : translate(locale, "meta.title");
+    const isSearch = isSearchPath(window.location.pathname);
+    const searchQuery = isSearch ? readSearchQuery(window.location.search) : "";
+    document.title = isAdmin
+      ? "DSHPlugin — 管理后台"
+      : isSearch
+        ? translate(locale, "search.metaTitle", { query: searchQuery || translate(locale, "search.allTitle") })
+        : translate(locale, "meta.title");
     document.querySelector('meta[name="description"]')?.setAttribute(
       "content",
       isAdmin ? "DSHPlugin 插件提交与举报管理后台。" : translate(locale, "meta.description"),

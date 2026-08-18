@@ -22,10 +22,11 @@
     "sync:catalog:awesome": "node scripts/sync-awesome-catalog.mjs",
     "sync:catalog:github": "node scripts/sync-github-topic-catalog.mjs",
     "check:catalog-links": "node scripts/check-catalog-links.mjs",
-    "test": "npm run test:catalog && npm run test:i18n",
+    "test": "npm run test:catalog && npm run test:i18n && npm run test:search",
     "test:catalog": "node --test tests/catalog.test.mjs",
     "test:sites": "node --test tests/sites-worker.test.mjs",
     "test:i18n": "node --test tests/i18n.test.mjs",
+    "test:search": "node --test tests/search-route.test.mjs",
     "verify": "npm test && npm run build && npm run test:sites",
     "typegen": "wrangler types"
   },
