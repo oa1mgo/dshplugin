@@ -99,7 +99,7 @@ kbd { min-width: 26px; height: 25px; display: grid; place-items: center; border:
 
 .registry-section { padding: 48px max(32px, calc((100vw - 1312px) / 2)) 34px; border-top: 1px solid var(--line); background: var(--surface); scroll-margin-top: var(--header-height); }
 .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; }
-.section-heading h2, .publisher-band h2 { margin: 0; font-size: 28px; letter-spacing: -.045em; }
+.section-heading h2, .agent-skills-section h2, .publisher-band h2 { margin: 0; font-size: 28px; letter-spacing: -.045em; }
 .section-heading .section-kicker { margin-bottom: 7px; }
 .registry-controls { display: flex; align-items: center; gap: 14px; }
 .sort-control { position: relative; display: flex; align-items: center; gap: 11px; color: var(--muted); font-size: 13px; }
@@ -150,7 +150,26 @@ kbd { min-width: 26px; height: 25px; display: grid; place-items: center; border:
 .pagination > span { min-width: 92px; text-align: center; color: var(--text); font: 500 12px "IBM Plex Mono", monospace; }
 .pagination .secondary-button { min-height: 36px; padding-inline: 13px; }
 .pagination .secondary-button:disabled { color: var(--faint); background: var(--surface-soft); border-color: var(--line); cursor: not-allowed; opacity: .72; }
-.publisher-band { max-width: 1312px; margin: 0 auto 64px; min-height: 202px; display: flex; align-items: center; justify-content: space-between; gap: 40px; padding: 42px 50px; border-radius: 10px; color: white; background: #102e6b; }
+.agent-skills-section { max-width: 1312px; margin: 56px auto 32px; }
+.agent-skills-intro { max-width: 760px; }
+.agent-skills-intro .section-kicker { margin-bottom: 7px; }
+.agent-skills-intro p { margin: 12px 0 0; color: var(--muted); line-height: 1.65; }
+.agent-skills-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 24px; }
+.agent-skill-card { min-width: 0; display: flex; flex-direction: column; padding: 24px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); box-shadow: 0 10px 28px color-mix(in srgb, var(--text) 6%, transparent); }
+.agent-skill-heading { display: flex; align-items: center; gap: 13px; }
+.agent-skill-icon { flex: 0 0 auto; width: 46px; height: 46px; display: grid; place-items: center; border: 1px solid color-mix(in srgb, var(--primary) 28%, var(--line)); border-radius: 9px; color: var(--primary); background: var(--primary-soft); }
+.agent-skill-heading div { min-width: 0; }
+.agent-skill-heading small { display: block; margin-bottom: 3px; color: var(--faint); font: 500 10px/1.2 "IBM Plex Mono", monospace; letter-spacing: .07em; text-transform: uppercase; }
+.agent-skill-heading h3 { margin: 0; font-size: 20px; letter-spacing: -.035em; }
+.agent-skill-card > p { min-height: 50px; margin: 17px 0 14px; color: var(--muted); font-size: 13px; line-height: 1.65; }
+.agent-skill-scope { width: fit-content; display: inline-flex; align-items: center; gap: 6px; padding: 5px 8px; border-radius: 5px; color: var(--green); background: var(--green-soft); font: 500 11px "IBM Plex Mono", monospace; }
+.agent-skill-url { min-width: 0; display: grid; gap: 5px; margin-top: 18px; padding: 12px 13px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface-soft); }
+.agent-skill-url:hover { border-color: var(--primary); }
+.agent-skill-url span { color: var(--faint); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; }
+.agent-skill-url code { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--primary); font: 400 11px "IBM Plex Mono", monospace; }
+.agent-skill-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 17px; }
+.agent-skill-actions .copy-button, .agent-skill-actions .secondary-button { min-height: 38px; }
+.publisher-band { max-width: 1312px; margin: 32px auto 64px; min-height: 202px; display: flex; align-items: center; justify-content: space-between; gap: 40px; padding: 42px 50px; border-radius: 10px; color: white; background: #102e6b; }
 .publisher-band .section-kicker { color: #9ebcff; }
 .publisher-band h2 { font-size: 34px; }
 .publisher-band p { max-width: 650px; margin: 12px 0 0; color: #c6d5f0; }
@@ -247,6 +266,7 @@ footer a:hover { color: var(--primary); }
   .table-header { display: none; }
   .row-main { grid-template-columns: minmax(300px, 1.5fr) minmax(190px, 1fr) 96px minmax(145px, 1fr); }
   .row-main { min-height: 92px; }
+  .agent-skills-section { margin-inline: 32px; }
   .publisher-band { margin-inline: 32px; }
   footer { padding-inline: 32px; }
 }
@@ -279,7 +299,12 @@ footer a:hover { color: var(--primary); }
   .details-link { grid-column: 1 / -1; justify-content: center; }
   .registry-footer { align-items: stretch; flex-direction: column; padding: 16px 0; }
   .pagination { justify-content: space-between; }
-  .publisher-band { margin: 0 20px 44px; padding: 32px 24px; align-items: start; flex-direction: column; }
+  .agent-skills-section { margin: 44px 20px 26px; }
+  .agent-skills-grid { grid-template-columns: 1fr; }
+  .agent-skill-card { padding: 21px; }
+  .agent-skill-card > p { min-height: 0; }
+  .agent-skill-actions { display: grid; grid-template-columns: 1fr; }
+  .publisher-band { margin: 26px 20px 44px; padding: 32px 24px; align-items: start; flex-direction: column; }
   .publisher-band h2 { font-size: 30px; }
   footer { grid-template-columns: 1fr; gap: 14px; padding: 35px 20px; }
   footer p { margin: 0; }

@@ -67,18 +67,28 @@ test("does not turn missing API or write requests into the app shell", async () 
 test("proxies the latest generated catalog without requiring D1", async () => {
   const calls = [];
   const payload = { meta: { topic: "dsh-plugin" }, plugins: [{ repo: "owner/plugin" }] };
+  const etag = '"catalog-v1"';
+  const fetchCatalog = async (url, options) => {
+    calls.push({ url, options });
+    return Response.json(payload, { headers: { etag, "last-modified": "Tue, 18 Aug 2026 00:00:00 GMT" } });
+  };
   const response = await worker.fetch(new Request("https://example.test/api/github-catalog"), {
-    CATALOG_FETCH: async (url, options) => {
-      calls.push({ url, options });
-      return Response.json(payload);
-    },
+    CATALOG_FETCH: fetchCatalog,
   });
 
   assert.equal(response.status, 200);
   assert.deepEqual(await response.json(), payload);
   assert.equal(calls[0].url, "https://raw.githubusercontent.com/oa1mgo/dshplugin/main/public/catalog/github-topic.generated.json?source=dshplugin");
-  assert.equal(calls[0].options.cf.cacheTtl, 300);
-  assert.match(response.headers.get("cache-control"), /s-maxage=300/);
+  assert.equal(calls[0].options.cf.cacheTtl, 3600);
+  assert.match(response.headers.get("cache-control"), /s-maxage=3600/);
+  assert.equal(response.headers.get("etag"), etag);
+
+  const notModified = await worker.fetch(new Request("https://example.test/api/github-catalog", {
+    headers: { "if-none-match": etag },
+  }), { CATALOG_FETCH: fetchCatalog });
+  assert.equal(notModified.status, 304);
+  assert.equal(await notModified.text(), "");
+  assert.equal(notModified.headers.get("etag"), etag);
 });
 
 function createDatabaseMock() {

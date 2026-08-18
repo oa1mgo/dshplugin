@@ -44,6 +44,20 @@ const languageOptions = [
   { id: "es", labelKey: "language.spanish" },
   { id: "system", labelKey: "language.system" },
 ];
+const agentSkills = [
+  {
+    id: "finder",
+    Icon: ListMagnifyingGlass,
+    installUrl: "https://github.com/oa1mgo/dshplugin/tree/main/skills/find-dsh-plugins",
+    sourceUrl: "https://github.com/oa1mgo/dshplugin/blob/main/skills/find-dsh-plugins/SKILL.md",
+  },
+  {
+    id: "security",
+    Icon: ShieldCheck,
+    installUrl: "https://github.com/oa1mgo/dshplugin/tree/main/skills/audit-dsh-plugin-security",
+    sourceUrl: "https://github.com/oa1mgo/dshplugin/blob/main/skills/audit-dsh-plugin-security/SKILL.md",
+  },
+];
 
 const iconMap = {
   interface: Monitor,
@@ -194,12 +208,34 @@ function LanguagePicker() {
   );
 }
 
-function CopyButton({ text, compact = false }) {
+async function writeClipboard(text) {
+  try {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch {
+    // Fall through for browsers that expose the API but deny clipboard access.
+  }
+
+  const input = document.createElement("textarea");
+  input.value = text;
+  input.setAttribute("readonly", "");
+  input.style.position = "fixed";
+  input.style.opacity = "0";
+  document.body.append(input);
+  input.select();
+  const copied = document.execCommand("copy");
+  input.remove();
+  return copied;
+}
+
+function CopyButton({ text, compact = false, label, copiedLabel }) {
   const { t } = useI18n();
   const [copied, setCopied] = useState(false);
 
   async function copy() {
-    await navigator.clipboard.writeText(text);
+    if (!await writeClipboard(text)) return;
     setCopied(true);
     window.setTimeout(() => setCopied(false), 1500);
   }
@@ -207,8 +243,48 @@ function CopyButton({ text, compact = false }) {
   return (
     <button className={compact ? "copy-button is-compact" : "copy-button"} type="button" onClick={copy}>
       {copied ? <Check size={17} weight="bold" /> : <Copy size={17} />}
-      {copied ? t("actions.copied") : t("actions.copy")}
+      {copied ? (copiedLabel || t("actions.copied")) : (label || t("actions.copy"))}
     </button>
+  );
+}
+
+function AgentSkillsSection() {
+  const { t } = useI18n();
+
+  return (
+    <section className="agent-skills-section" id="agent-skills">
+      <div className="agent-skills-intro">
+        <span className="section-kicker">{t("agentSkills.kicker")}</span>
+        <h2>{t("agentSkills.title")}</h2>
+        <p>{t("agentSkills.description")}</p>
+      </div>
+      <div className="agent-skills-grid">
+        {agentSkills.map(({ id, Icon, installUrl, sourceUrl }) => (
+          <article className="agent-skill-card" key={id}>
+            <div className="agent-skill-heading">
+              <span className="agent-skill-icon"><Icon size={24} weight="duotone" /></span>
+              <div><small>Agent Skill</small><h3>{t(`agentSkills.${id}.title`)}</h3></div>
+            </div>
+            <p>{t(`agentSkills.${id}.description`)}</p>
+            <span className="agent-skill-scope"><Check size={15} weight="bold" /> {t("agentSkills.scope")}</span>
+            <a className="agent-skill-url" href={installUrl} target="_blank" rel="noreferrer">
+              <span>{t("agentSkills.installLink")}</span>
+              <code>{installUrl}</code>
+            </a>
+            <div className="agent-skill-actions">
+              <CopyButton
+                text={t(`agentSkills.${id}.prompt`, { url: installUrl })}
+                label={t("agentSkills.copyPrompt")}
+                copiedLabel={t("agentSkills.promptCopied")}
+              />
+              <a className="secondary-button" href={sourceUrl} target="_blank" rel="noreferrer">
+                <GithubLogo size={18} weight="fill" /> {t("agentSkills.source")}
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -589,6 +665,8 @@ export function App() {
             </div>
           ) : null}
         </section>
+
+        <AgentSkillsSection />
 
         <section className="publisher-band">
           <div><span className="section-kicker">{t("publisher.kicker")}</span><h2>{t("publisher.title")}</h2><p>{t("publisher.description")}</p></div>

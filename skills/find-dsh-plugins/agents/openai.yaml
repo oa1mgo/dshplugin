@@ -1,0 +1,4 @@
+interface:
+  display_name: "Find DSH Plugins"
+  short_description: "Find matching plugins in the DSHPlugin catalog"
+  default_prompt: "Use $find-dsh-plugins to find the best DSH plugins for my workflow."

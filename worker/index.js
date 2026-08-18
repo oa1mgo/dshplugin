@@ -11,6 +11,8 @@ const SECURITY_HEADERS = {
 const REPORT_REASONS = new Set(["security", "broken", "misleading", "harmful", "other"]);
 const MODERATION_STATUSES = new Set(["pending", "reviewing", "resolved", "rejected"]);
 const GITHUB_CATALOG_URL = "https://raw.githubusercontent.com/oa1mgo/dshplugin/main/public/catalog/github-topic.generated.json?source=dshplugin";
+const CATALOG_CACHE_CONTROL = "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400";
+const CATALOG_EDGE_TTL_SECONDS = 3600;
 const accessKeysets = new Map();
 
 function withSecurityHeaders(response) {
@@ -126,18 +128,35 @@ async function handleAdminList(request, env) {
   return json({ submissions: submissions.results, reports: reports.results, viewer: { email: viewer.email } });
 }
 
-async function handleGithubCatalog(env) {
+function requestMatchesEtag(request, etag) {
+  if (!etag) return false;
+  return (request.headers.get("if-none-match") || "")
+    .split(",")
+    .map((value) => value.trim())
+    .some((value) => value === "*" || value === etag);
+}
+
+async function handleGithubCatalog(request, env) {
   const fetcher = env.CATALOG_FETCH || fetch;
   const upstream = await fetcher(GITHUB_CATALOG_URL, {
     headers: { accept: "application/json", "user-agent": "dshplugin-catalog-proxy" },
-    cf: { cacheEverything: true, cacheTtl: 300 },
+    cf: { cacheEverything: true, cacheTtl: CATALOG_EDGE_TTL_SECONDS },
   });
   if (!upstream.ok) return json({ error: "catalog_unavailable" }, 502);
+  const etag = upstream.headers.get("etag");
+  const lastModified = upstream.headers.get("last-modified");
+  const headers = new Headers({
+    "Cache-Control": CATALOG_CACHE_CONTROL,
+    "Content-Type": "application/json; charset=utf-8",
+  });
+  if (etag) headers.set("ETag", etag);
+  if (lastModified) headers.set("Last-Modified", lastModified);
+  if (requestMatchesEtag(request, etag)) {
+    await upstream.body?.cancel();
+    return withSecurityHeaders(new Response(null, { status: 304, headers }));
+  }
   return withSecurityHeaders(new Response(upstream.body, {
-    headers: {
-      "Cache-Control": "public, max-age=60, s-maxage=300",
-      "Content-Type": "application/json; charset=utf-8",
-    },
+    headers,
   }));
 }
 
@@ -165,7 +184,7 @@ async function handleApi(request, env, pathname) {
   if (!isKnownRoute) return json({ error: "not_found" }, 404);
   if (request.method === "GET" && pathname === "/api/github-catalog") {
     try {
-      return await handleGithubCatalog(env);
+      return await handleGithubCatalog(request, env);
     } catch (error) {
       console.error(JSON.stringify({ event: "catalog_proxy_error", message: error?.message || "unknown" }));
       return json({ error: "catalog_unavailable" }, 502);

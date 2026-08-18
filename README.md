@@ -38,6 +38,15 @@ Explore the production registry at **[dshplugin.org](https://dshplugin.org)**.
 - D1-backed plugin submissions and abuse reports
 - Cloudflare Access-protected moderation UI with server-side JWT verification
 
+## Agent Skills
+
+Bring the registry into an AI coding agent with two open, portable skills:
+
+- [`find-dsh-plugins`](skills/find-dsh-plugins) performs semantic matching exclusively against the DSHPlugin catalog. It never falls back to GitHub Search, web search, or another marketplace.
+- [`audit-dsh-plugin-security`](skills/audit-dsh-plugin-security) resolves a plugin through DSHPlugin first, then performs a read-only review of the cataloged repository at its indexed commit.
+
+Each skill directory contains a standard `SKILL.md`, Codex UI metadata, and a small catalog client. The client caches one catalog download for six hours, revalidates with ETags, and returns only a short candidate set to the agent. The homepage provides a copy-ready installation prompt and a direct source link for both skills.
+
 ## Index model
 
 The index combines two public discovery paths:
