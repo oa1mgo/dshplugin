@@ -3,14 +3,14 @@
     "sourceRepo": "AdamPlatin123/awesome-dsh-plugins",
     "sourceUrl": "https://github.com/AdamPlatin123/awesome-dsh-plugins",
     "sourcePath": "PLUGINS.md",
-    "sourceRevision": "48d3f090a92462ffd60cf4707daf11b7c605c6da",
-    "sourceUpdatedAt": "2026-08-23T13:05:43.430Z",
+    "sourceRevision": "8333523bcc11541e13236c49f5b491227bbb957a",
+    "sourceUpdatedAt": "2026-08-23T18:51:21.428Z",
     "repositoryValidation": {
       "method": "git-smart-http",
-      "checkedAt": "2026-08-23T13:05:43.430Z",
-      "candidates": 154,
-      "validated": 152,
-      "accepted": 152,
+      "checkedAt": "2026-08-23T18:51:21.428Z",
+      "candidates": 162,
+      "validated": 160,
+      "accepted": 160,
       "deduplicated": 0,
       "rejected": 2,
       "rejectedRepositories": [
@@ -19,13 +19,13 @@
       ]
     },
     "license": "MIT",
-    "total": 152,
+    "total": 160,
     "categoryCounts": {
-      "Plugin": 125,
+      "Plugin": 132,
       "Bundle": 5,
       "Skill": 5,
       "Channel": 8,
-      "Infrastructure": 9,
+      "Infrastructure": 10,
       "Other": 0
     }
   },
@@ -38,7 +38,7 @@
       "category": "Plugin",
       "description": "软件工程方法论技能包：baseline-first 规划、系统性重构等技能（对方清单 1089★，rc.8 实测 ✅）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "api-relay-audit",
@@ -48,7 +48,7 @@
       "category": "Plugin",
       "description": "从 DSH 发起 AI API 中继/LLM 代理的本地安全审计，产出 Markdown 报告（797★，rc.8 实测 ✅）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "better-deepseek",
@@ -58,7 +58,7 @@
       "category": "Plugin",
       "description": "Better DeepSeek Chrome 扩展桥接插件（398★，rc.8 实测 ✅）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "Bigfish",
@@ -68,7 +68,7 @@
       "category": "Plugin",
       "description": "DeepSeek Harness 第三方桌面端：内置 Node 运行时双击即用（Top50 精选成员，registry 插队实测）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "CiteCiter",
@@ -78,7 +78,7 @@
       "category": "Plugin",
       "description": "在 DSH Web 中选中已完成的助手回复，右键 `Citer!` 后从真实会话边界创建只读子会话，并在 details 侧栏流式解释；不写入父会话日志，支持 Markdown、代码、KaTeX、安全 SVG 与无网络 HTML 预览；npm `@kirkchinese/dsh-citeciter` 0.1.1，17 项测试及真实 registry 安装、浏览器 smoke 均通过",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "claude2dsh",
@@ -88,7 +88,7 @@
       "category": "Plugin",
       "description": "将 Claude Code 会话、技能、记忆与插件资产导入为 DSH 原生可续聊会话，并支持导出/同步回 Claude Code JSONL；双向冲突检测 + 显式三路合并；Settings 配置页",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "deepseek-harness-desktop",
@@ -98,7 +98,7 @@
       "category": "Infrastructure",
       "description": "Windows 原生桌面外壳:1:1 官方 Web UI、内置服务器托管、托盘驻留与掉线自动恢复",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "deepseek-skin-studio",
@@ -108,7 +108,7 @@
       "category": "Plugin",
       "description": "DSH 换肤工作室：一张图一套皮肤，三通道注入（书签/CDP/原生插件）+ 可视化工坊 + 13 套内置主题 + DSH-SKIN-SPEC 导出",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "ds-api-usage",
@@ -118,7 +118,7 @@
       "category": "Plugin",
       "description": "在设置页展示 DeepSeek API 余额与最近 24 小时用量，包括估算消费、Token、请求次数和按小时时间线",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-agent-message",
@@ -128,7 +128,7 @@
       "category": "Plugin",
       "description": "跨会话 Agent 通信：让运行在同一 DeepSeek Harness 进程里的不同 Agent 会话互相收发消息",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-agent-preset-recommender",
@@ -138,7 +138,7 @@
       "category": "Plugin",
       "description": "有界、隐私安全的本地扫描器：汇总 Codex、Claude Code、WorkBuddy、CodeBuddy 元数据，原子保存密钥化聚合证据，并确定性推荐 DSH 内置 preset 与可选能力；不保留正文、不联网、不修改 preset",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-agent-team-gui",
@@ -148,7 +148,7 @@
       "category": "Plugin",
       "description": "持久化多模型 Agent 小队：主 Agent 按成员特性动态编排有界 DAG，成员独立配置模型与工具策略；在 Settings/Composer 管理和选择小队，Run Center 支持追踪、重试与取消，并提供逐 Agent Token 成本洞察；v0.5.0 通过 117 Host + 62 Client 测试及 DSH rc.6 全新 Web profile 安装/浏览器冒烟",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-agentfuse-plugin",
@@ -158,7 +158,7 @@
       "category": "Plugin",
       "description": "确定性 fail-closed 工具调用授权门：allow/block/ask 策略门 + 审批链延后 + agentfuse-evidence-schema 证据；配 dsh-policy-test 闭环回归；已获本雷达运行级 [可用] 判定",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-anchored-standard",
@@ -168,7 +168,7 @@
       "category": "Plugin",
       "description": "两阶段 DSH 预设：极简模式对齐启动 → 全量装载（Top50 Booster 成员，registry 插队实测）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-anchored-subagent",
@@ -178,7 +178,7 @@
       "category": "Plugin",
       "description": "让 DSH 主 agent 和子代理别一开口就 `Let me...`：首轮用 Minimal 开局进入满血状态，第二轮恢复全部工具；自定义子代理角色首轮先收起来，第二轮再放出来",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-annotation",
@@ -188,7 +188,7 @@
       "category": "Plugin",
       "description": "DSH Web 选中批注插件：选文字→批注→回车随消息发送，回复按 Annotation N 逐条对照（可悬浮芯片）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-approval-gate",
@@ -198,7 +198,7 @@
       "category": "Plugin",
       "description": "自动审批门控：Flash 预判写入/命令是否不可回补，安全操作自动批准、危险操作转人工（fail-safe）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-approve-for-me",
@@ -208,7 +208,7 @@
       "category": "Plugin",
       "description": "DeepSeek Harness 沙箱扩权审批：Shell/PowerShell 字面命令前缀规则、固定高风险检查、可选无工具 LLM reviewer；成功仅授予一次 `allowed-once`，高危或不确定请求回原生人工审批，支持 Web/headless Profile",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-artifact",
@@ -219,7 +219,7 @@
       "description": "制品管理",
       "upstreamRepo": "dsh-external/dsh-artifact",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-background-agents",
@@ -229,7 +229,7 @@
       "category": "Plugin",
       "description": "交互式长会话后台 agent：官方 subagent 接缝上的可持久/可继续子 agent，Web UI 侧边栏实时进度、随时消息/打断、autoReport 进度注入、空闲归档；npm 0.5.0 已发布",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-balance",
@@ -239,7 +239,7 @@
       "category": "Plugin",
       "description": "在 DSH Web 聊天框底部实时估算对话 Token 消耗并显示您的 DeepSeek 账户余额",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-bash-terminal",
@@ -249,7 +249,17 @@
       "category": "Plugin",
       "description": "Windows 三终端 shell 工具（PowerShell/Git Bash/WSL，默认终端由用户在设置中选择）+ 交互式 PTY 终端 + 官方沙箱对接；4 套件测试 + GitHub Actions CI 全绿",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
+    },
+    {
+      "name": "dsh-browser-firefox",
+      "repo": "tuojc/dsh-browser-firefox",
+      "owner": "tuojc",
+      "url": "https://github.com/tuojc/dsh-browser-firefox",
+      "category": "Plugin",
+      "description": "Firefox 浏览器控制（插件 + Firefox 扩展两件套）：DSH 插件经 token 认证 WebSocket 驱动用户自己的 Firefox，文本优先工具集——快照/点击/输入/按键/滚动/导航/前进后退/标签栈/取文本/等待，截图仅作视觉兜底且看完即清理；每会话一个 tab group（新旧标签全归组、检测复用不出组），新 tab 自动跟随，Firefox MV3 CSP 下 evaluate 用预编译操作（无任意 JS）；自 Lum1104/dsh-browser（MIT）移植，Firefox 扩展已在 AMO 上架：[DSH 浏览器助手](https://addons.mozilla.org/en-GB/firefox/addon/dsh-%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8A%A9%E6%89%8B/)",
+      "repositoryStatus": "public",
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-calendar",
@@ -259,7 +269,7 @@
       "category": "Plugin",
       "description": "CalDAV 日历插件：查/建/改/删/搜日程（calendar_list/create/update/delete/search），Google/iCloud/Nextcloud/自定义端点，应用专用密码",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-change-budget",
@@ -269,7 +279,7 @@
       "category": "Infrastructure",
       "description": "为每个 DSH Agent 回合设置文件数、修改调用数与 UTF-8 载荷额度；在受支持的文件修改工具执行前阻止超额修改，并对并行调用同步预留额度",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-chat-import",
@@ -279,7 +289,7 @@
       "category": "Plugin",
       "description": "13 源全保真导入（Claude Code/Codex/ChatGPT/Cursor/Gemini/Reasonix/opencode/ZCode/Grok Build/OpenClaw/Pi/Hermes/Kimi）→ 可续聊 DSH 会话，反向 export_claude/sync_to_claude 写回 Claude Code；增量续写/幂等/上下文预算/Web 面板，npm dsh-chat-import",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-chinese-traditional-wisdom-skill",
@@ -289,7 +299,7 @@
       "category": "Skill",
       "description": "中华传统智慧（玄枢）AI Agent 技能包：八字/紫微/六爻/梅花/奇门/风水/五运六气/体质全融合，本地确定性引擎 + 可视化 Dashboard；dsh.bundle manifest 可安装",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-ci-doctor",
@@ -299,7 +309,7 @@
       "category": "Plugin",
       "description": "CI 失败自动诊断：ci_watch 后台监视新增失败运行（基线对比/退避/可取消）+ ci_diagnose 日志签名提取分类（嫌疑文件/裁剪摘录/markdown 诊断卡）+ 失败签名账本去重复发；102 单测 + web profile 进程内 boot 19 项 + headless 真实模型回路实测（v0.1.2 审查修复版）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-claude-move",
@@ -309,7 +319,7 @@
       "category": "Plugin",
       "description": "从 Claude Code 全保真复制历史会话/记忆/技能/CLAUDE.md 到 DSH：全部导入会话归入独立 claudecode 工作区（workspaceMode 可切回按项目分组），复制式增量同步，中断工具调用自动修复（issue#1），Web 面板 + /claude-import-all + /resume-claude",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-compressor",
@@ -319,7 +329,7 @@
       "category": "Plugin",
       "description": "[Headroom](https://github.com/headroomlabs-ai/headroom) 的精简移植，在不影响模型上下文缓存以及 Agent 性能的情况下，压缩工具的输出，至多减少 20% 的上下文。",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-config-watch",
@@ -329,7 +339,7 @@
       "category": "Plugin",
       "description": "配置漂移侦探：启动时快照 profile/插件清单并记录变更历史（config_changes 工具）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-cost-ledger",
@@ -339,7 +349,7 @@
       "category": "Plugin",
       "description": "跨会话持久成本账本：订阅 llm/stream 自动记录每次模型调用的 token 用量到 SQLite，内置 DeepSeek 官方 CNY 定价（可热改），提供 record_cost/query_cost/set_budget 三个 agent 工具 + /api/cost-ledger/* HTTP API 供 WebUI 仪表盘",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-cost-meter",
@@ -349,7 +359,7 @@
       "category": "Plugin",
       "description": "按会话/按日 API 成本、预算与用量百分比、官方余额、历史看板（138★，rc.8 实测 ✅）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-daily-brief",
@@ -359,7 +369,7 @@
       "category": "Plugin",
       "description": "回合日报：跨 live 会话统计回合/用户消息/助手回复/工具调用（daily_brief 工具，只读零依赖）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-daily-kit",
@@ -369,7 +379,17 @@
       "category": "Bundle",
       "description": "日常插件集合 monorepo：16 个插件（审批门/桌面与Webhook通知/成本计量/会话导出/Ollama 本地模型/上下文水位/办公文档解析/本地文件夹索引/cron 全局调度/RSS与网页内容监控/日历/Gmail/待办/天气地点/票据识别/音视频转录）+ 4 个一键 bundle（dev-buddy/evidence-wall/inbox-zero/daily-briefing）；权限透明、读取优先、零 native 依赖，596 单测，dsh rc.6/rc.7 真实加载与 npm 安装实测通过",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
+    },
+    {
+      "name": "dsh-data-quality",
+      "repo": "PerryLink/dsh-data-quality",
+      "owner": "PerryLink",
+      "url": "https://github.com/PerryLink/dsh-data-quality",
+      "category": "Plugin",
+      "description": "确定性的数据画像、清洗与校验：data_profile / data_clean / data_verify 三个模型工具 + 冻结的跨插件 verifyCitations 引用核验契约，报告持久化到 data_quality 存储域；npm `dsh-data-quality` 已发布 0.1.3",
+      "repositoryStatus": "public",
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-desk-pet",
@@ -379,7 +399,7 @@
       "category": "Plugin",
       "description": "macOS 桌宠：真的 AppKit 置顶窗口而不是页面里的挂件，全屏 Space 也盖得住；六种状态跟着本地 DSH 走（空闲／干活／等你确认／报错／刚跑完／打盹），原生右键菜单含免打扰与会话清单；自带的 skill 用你自己的画图工具和额度把一张照片扩成整套十八个姿势的皮肤，装在包外，升级不会删。跑系统自带的 Python 与 ctypes，零运行时依赖，不用 Electron。**仅 macOS**",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-dingtalk",
@@ -389,7 +409,7 @@
       "category": "Plugin",
       "description": "钉钉群机器人通知（dingtalk_notify/dingtalk_text），自定义机器人 webhook+加签，零运行时依赖",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-docker",
@@ -399,7 +419,7 @@
       "category": "Plugin",
       "description": "容器管理插件：docker_ps/logs/inspect/exec/manage 五工具，官方 subprocess 服务、argv 无 shell 注入、exec 审批门、零运行时依赖",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-doublecheck",
@@ -409,7 +429,7 @@
       "category": "Plugin",
       "description": "工程纪律插件：交付前三查——需求审讯（grill-requirements 技能）+ 红绿测试证据门 + 对抗评审 + 交付报告与逐维度核对（verify 工作流）；/doublecheck 会话命令、en/zh 双语、npm 已发布 0.6.0",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-easyrewrite",
@@ -419,7 +439,7 @@
       "category": "Plugin",
       "description": "DSH Web 用户消息气泡内联编辑与撤回插件：惰性提交、无痕替换、版本翻页器、草稿自动备份、三语 i18n（中/英/日）；npm `dsh-easyrewrite`（dsh.bundle.patch → cordis.patch.yml，`dsh plugin add` 一键安装）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-email",
@@ -429,7 +449,7 @@
       "category": "Plugin",
       "description": "邮件工具插件：IMAP/SMTP 收/发/搜/列文件夹/附件下载（email_list/read/search/send/folders/attachment），内置 QQ/163/126/新浪/阿里/Gmail/Outlook/iCloud 预设，支持多账号与连接复用，发信默认走审批门；纯 Node 全平台",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-event-auditor",
@@ -439,7 +459,7 @@
       "category": "Plugin",
       "description": "Harness 事件流审计面板：观察事件类型/分发模式/计数/最近事件，settings 热改 + /audit 会话命令；已用 mock-llm 运行时验证（74 事件/12 waterfall）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-evidence-task-board",
@@ -449,7 +469,7 @@
       "category": "Plugin",
       "description": "持久化确定性任务状态原语（创建/状态/证据转移）；npm 包 @mkaliezz/dsh-task-board",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-experts",
@@ -459,7 +479,17 @@
       "category": "Plugin",
       "description": "DSH 设置页内置「专家市场」：浏览/搜索社区专家与专家团、查看详情并复制到输入框；默认消费 awesome-dsh-experts 目录（7 个种子专家/团），rc.6 web profile 实测 0 加载错误、27 测试全绿",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
+    },
+    {
+      "name": "dsh-fast",
+      "repo": "PerryLink/dsh-fast",
+      "owner": "PerryLink",
+      "url": "https://github.com/PerryLink/dsh-fast",
+      "category": "Plugin",
+      "description": "只读性能诊断：会话加载/恢复耗时、spill 命中计数、压缩次数与触发、上下文注入体量（AGENTS.md/技能/工具 schema 的 token 占比）与 LLM 缓存命中率，经 /fast 命令与 fast_report 工具呈现，异步采样不阻塞模型路径；npm `dsh-fast` 0.1.3",
+      "repositoryStatus": "public",
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-feishu-bridge",
@@ -469,7 +499,7 @@
       "category": "Channel",
       "description": "安全边界优先的飞书/Lark channel 桥：fail-closed 白名单（空名单拒绝所有人）、webhook 签名/时间戳/重放三重校验、一次性身份绑定卡片 nonce、远程 bash 工具审批闸门（超时即拒）；ws/webhook 双 transport，`dsh plugin add` 薄壳或独立进程两种装法；已向上游 lark-channel-sdk 负责任披露验签缺陷（issues #11/#12）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-ffmpeg",
@@ -479,7 +509,7 @@
       "category": "Plugin",
       "description": "视频处理插件：ffmpeg_probe/cut/concat/encode/subtitle/extract/gif 七工具（探测/剪辑/拼接/转码/字幕烧录/抽帧/GIF），走官方 subprocess 服务、argv 数组无 shell 注入、零运行时依赖",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-full-remote",
@@ -489,7 +519,7 @@
       "category": "Plugin",
       "description": "令牌反向代理：改写 Host/Origin，远程恢复 `settings.*`/`credentials.*`/`host.listDirectory`（通用隧道会 403）；一次性扫码邀请、按设备会话；npm `dsh-full-remote`",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-fund-research",
@@ -499,7 +529,7 @@
       "category": "Infrastructure",
       "description": "中国公募基金确定性研究：天天基金/东方财富公开数据采集（pingzhongdata JS 块、F10 持仓与经理页、个股估值 + push2delay 兜底主机），业绩拆解/持仓穿透/风格归因/经理画像纯函数计算，版本化 Markdown 报告附每个关键数字可回溯到 sha256 源快照的附录；npm dsh-fund-research 已发布；仅供研究，不构成投资建议",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-genui",
@@ -509,7 +539,7 @@
       "category": "Plugin",
       "description": "GenUI 内联交互组件：dsh-ui fence 渲染图表/表单/测验/3D 场景，带 action 事件环",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-git-plugin",
@@ -519,7 +549,7 @@
       "category": "Plugin",
       "description": "面向 DSH Web 的可视化 Git 工作台：查看仓库状态、Diff、分支、提交历史与贮藏，点击执行常用 Git 操作，并安全运行 AI 生成的分步骤 Git 提议；npm `dsh-easygit-plugin` 0.2.1，DSH 0.1.0-rc.6 实测",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-hdc-bridge",
@@ -529,7 +559,7 @@
       "category": "Plugin",
       "description": "鸿蒙设备桥：hdc 设备闭环（截图/装包/日志/崩溃/UI 自动化）+ 官方优先 API 知识层（SDK .d.ts + 离线 Tier-1 随包）+ DevEco CLI 构建/签名/lint；无头 DSH 实例真实 E2E 已验证",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-lan-access",
@@ -539,7 +569,7 @@
       "category": "Plugin",
       "description": "局域网访问：Web GUI 绑定 0.0.0.0 + crypto.randomUUID polyfill（修复非安全上下文下 RPC 崩溃），npm 可装",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-lark-bot",
@@ -549,7 +579,7 @@
       "category": "Channel",
       "description": "dsh-lark-bot：把 DeepSeek Harness (dsh) 桥接进飞书/Lark 的 bot — 标准 dsh profile bundle（`npx dsh-lark-bot@latest setup` 一行安装），扫码即用：流式卡片、git worktree 项目工作区、scope 并行任务、多角色 Agent、会话归档、lark_notify 跨会话通知、对话内模型/密钥管理、安全网守护（dsh 崩溃后飞书仍可自救，/safemode 仅核心自愈）（0.15.1）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-lark-link",
@@ -559,7 +589,7 @@
       "category": "Channel",
       "description": "High-reliability Feishu/Lark bridge — QR one-click auth, CardKit streaming, zero-loss persistent outbox (at-least-once), per-conversation DSH sessions, self-healing connection, media in/out, reusable DSH Web GUI",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-latexcp",
@@ -569,7 +599,7 @@
       "category": "Plugin",
       "description": "DSH Web 界面 LaTeX 公式复制插件：悬停 KaTeX 公式复制按钮，一键复制 TeX 源码（$…$ / \\(…\\) 两种格式",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-lens",
@@ -579,7 +609,7 @@
       "category": "Plugin",
       "description": "写/改文件时的实时代码反馈：LSP / linter / formatter / ast-grep / symbol_search，Web chip+dock；npm `dsh-lens`",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-llm-fallback",
@@ -589,7 +619,27 @@
       "category": "Plugin",
       "description": "LLM 回退链插件：请求本身永远是链头（聊天栏所选模型永不被改写），失败自动按备用顺序切换重试；Web UI 配置面板（provider/model 下拉选择、错误码、阈值、冷却，保存热生效）；dsh.bundle 一键激活；69 单测全绿 + Windows 实测",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
+    },
+    {
+      "name": "dsh-local-ai",
+      "repo": "PerryLink/dsh-local-ai",
+      "owner": "PerryLink",
+      "url": "https://github.com/PerryLink/dsh-local-ai",
+      "category": "Infrastructure",
+      "description": "Ollama 本地模型接入：ollama_list/pull/remove/show 与健康检查，以官方 LlmAdapter 注册 Ollama 路由并按 model_route 规则（离线优先/长文本/隐私）分流、失败自动回退云端；/ollama 命令一键总览；npm dsh-local-ai 已发布",
+      "repositoryStatus": "public",
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
+    },
+    {
+      "name": "dsh-mask",
+      "repo": "PerryLink/dsh-mask",
+      "owner": "PerryLink",
+      "url": "https://github.com/PerryLink/dsh-mask",
+      "category": "Plugin",
+      "description": "PII 脱敏中间件：在模型边界前把姓名/电话/邮箱/身份证/银行卡/密钥/地址替换为占位符，展示层还原，明文绝不入会话日志；/mask 命令 + mask_test 工具；npm dsh-mask 0.1.4 已发布",
+      "repositoryStatus": "public",
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-mcp-adapter",
@@ -599,7 +649,7 @@
       "category": "Plugin",
       "description": "一个 mcp 代理工具：按需 search/describe/call，不把每个 MCP schema 塞进上下文；Web `/mcp` 菜单可添加/连接/授权",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-mcp-list",
@@ -609,7 +659,7 @@
       "category": "Plugin",
       "description": "设置面板新增 MCP 页：按服务器分组列出全部已挂载 MCP 服务器与工具，扫描最近会话统计各工具调用次数，一键在系统编辑器打开 cordis.patch.yml 的 MCP 配置",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-mcp-skill-panel",
@@ -619,7 +669,7 @@
       "category": "Plugin",
       "description": "MCP 与技能管理面板：MCP 服务器/Skill 实时启停释放上下文（停用态回填目录工具数）；可选 AI 中间层（mcp_search/mcp_call）按 server 状态过滤可见性、保活启用 + 空闲 30s 回收",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-mdbox",
@@ -629,7 +679,7 @@
       "category": "Plugin",
       "description": "DSH Web 输入框 Markdown 编辑辅助：Shift+Enter 列表续行与空项退出、有序列表自动重编号、Tab/Shift+Tab 双向缩进；纯客户端零运行时依赖，不碰文件/网络/凭据",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-mmx-bridge",
@@ -639,7 +689,7 @@
       "category": "Plugin",
       "description": "MiniMax 多模态桥接插件：一个 mmx_bridge 工具覆盖图像理解（VLM）/文生图/文图生视频/语音合成/音乐生成/音频翻唱/联网搜索/用量查询，生成产物经 /mmx-files/ 同源内嵌图片预览与音视频播放器，附 Web 设置页管理卡片；零 npm 运行时依赖",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-mnemon",
@@ -649,7 +699,17 @@
       "category": "Plugin",
       "description": "Mnemon 深度集成的本地记忆系统：运行时热记忆 / 项目档案 / 长期记忆体三层存储，受监督写回、检索工具与 8 页 Web UI",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
+    },
+    {
+      "name": "dsh-model-router",
+      "repo": "welsione/dsh-model-router",
+      "owner": "welsione",
+      "url": "https://github.com/welsione/dsh-model-router",
+      "category": "Plugin",
+      "description": "统一模型路由插件：一个逻辑 ModelID 汇聚多家供应商，首 token 前失败自动切换并冷却、健康度择优、按 purpose 三档分级（tier1/2/3）、每候选思考级别（reasoningEffort），设置面板自动保存即时生效；npm `@welsione/dsh-model-router`",
+      "repositoryStatus": "public",
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-oauth-mcp-client",
@@ -659,7 +719,7 @@
       "category": "Plugin",
       "description": "为 DSH 连接支持 OAuth 2.1 的 Streamable HTTP MCP 服务",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-office",
@@ -669,7 +729,7 @@
       "category": "Plugin",
       "description": "办公室工作区/会话仪表盘：悬浮 6 列精灵面板，可视化工作区、会话、token 用量与子代理，内置 Agent 邮箱、飞书消息、会议日程、妙记逐字稿与办公室日志（web bundle，v0.3.0）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-onebot",
@@ -679,7 +739,7 @@
       "category": "Channel",
       "description": "QQ 渠道插件（OneBot 11 / NapCat）：反向/正向 WS、dm/群聊访问策略与 @ 门控、入站图片/语音/视频/文件解析 + whisper 转写、t2i 文字图卡片、斜杠命令、loop 合并转发+撤回（99 测试全绿，真实 QQ 链路实测）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-open-file",
@@ -690,7 +750,7 @@
       "description": "DSH Web 工作区文件附件插件：多文件选择与全页拖放，读取文本、PDF、DOCX、PPTX、XLSX、ZIP 和图片，提供英中 OCR、页面渲染及 `file_inspect` / `file_read` / `file_ocr` / `file_render` 四个可追溯工具；npm `dsh-open-file` 0.1.1",
       "upstreamRepo": "Hyp6666/dsh-open-file",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-outline",
@@ -700,7 +760,7 @@
       "category": "Plugin",
       "description": "DSH Web 会话页实时大纲面板：「用户问题 + Markdown 标题（1~6 级）」大纲树，流式生成实时更新，点击节点定位高亮，支持展开层级调节、搜索与会话级收藏",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-permission-rules",
@@ -710,7 +770,7 @@
       "category": "Plugin",
       "description": "Claude Code 风格声明式权限规则：按序 allow/deny/ask YAML 规则，在 tools/pre-execute 瀑布上匹配工具名/参数/工作区路径/agent 身份，带会话日志审计、干跑模式与热重载；npm 已发布",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-plugin-audit",
@@ -720,7 +780,7 @@
       "category": "Plugin",
       "description": "插件安全审计器：plugin_audit 静态权限画像（能力/凭证路径/外发主机，文件行号实证，只读契约）+ tools/pre-execute 运行时哨兵（凭证访问/非白名单外发/dotfile 写入 → 审批）；23 单测 + headless/web 真实 profile 双验证",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-plugin-automations",
@@ -730,7 +790,7 @@
       "category": "Plugin",
       "description": "Web 设置页定时任务：支持准点或 DeepSeek 谷时段执行、单次/每日重复，并持久化任务状态",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-plugin-guard",
@@ -740,7 +800,7 @@
       "category": "Plugin",
       "description": "插件安装安全网：装/卸/开关插件前自动快照备份，启动健康检查失败自动回退最后良好快照并重试一次，设置>备份管理面板 + 双击一键回退脚本，事故报告自动触发 Agent 分析；零运行时依赖，引擎冒烟测试 + 三种安装布局实测通过",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-plugin-guide",
@@ -750,7 +810,7 @@
       "category": "Skill",
       "description": "DSH 插件开发知识库：官方约束、任务工作流、API 参考与社区踩坑，作为按需加载的智能体技能（bundle 可安装，注册 ctx.skills 技能）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-plugin-hub",
@@ -760,7 +820,7 @@
       "category": "Plugin",
       "description": "DSH 插件管理面板：一键启停 + 多源市场（GitHub/Gitee/自定义）+ 静态索引市场（500+ 插件/300 技能）+ 技能安装/停用 + 套装一键装配 + 框架升级适配",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-plugin-marketplace",
@@ -770,7 +830,7 @@
       "category": "Plugin",
       "description": "Web UI 内置插件市场：设置页直接浏览 github.com/topics/dsh-plugin，搜索/按 Star 排序/README 摘要；settings 通道一键安装并自动挂载 cordis.patch.yml；AI 解释；npm 已发布",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-plugin-subscriptions",
@@ -780,7 +840,7 @@
       "category": "Plugin",
       "description": "把 ChatGPT(Codex)/Claude/Grok 订阅作为 DSH 的 LLM 供应商，含设置页管理（216★，rc.8 实测 ✅）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-plugin-web-access",
@@ -790,7 +850,7 @@
       "category": "Plugin",
       "description": "纯本地按需网页访问：web_fetch 命令行抓取 + 无头浏览器（browser_open/snapshot/eval/screenshot）双通道，零 API Key，注册 ctx.web fetch provider",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-plugins",
@@ -800,7 +860,7 @@
       "category": "Bundle",
       "description": "DSH 插件家族索引：16 个插件（fail-closed 授权安全线 / 策略测试与诊断 / 工作区生产力 / 运行时基础设施），统一 dsh-plugin topic",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "DSH-Plugins-Marketplace",
@@ -810,7 +870,7 @@
       "category": "Plugin",
       "description": "DSH 插件市场：聚合 GitHub `dsh-plugin` 话题插件，Web GUI 一键安装/更新/已安装识别（含预装插件自动比对），静态索引 CI 每 2 小时刷新，中英双语",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-prompt-optimizer",
@@ -820,7 +880,7 @@
       "category": "Plugin",
       "description": "发送栏「优化」按钮一键分析并改写提示词草稿，SSE 流式逐段上屏；上下文感知双策略（无上下文按结构模板改写，有上下文先提炼目的再润色，已否决方向不重提），轻量记忆链延续多轮修改、发送即归零；斜杠命令前缀保留；dock 面板可替换/撤回/复制/重试，发送后自动关闭，实时显示阶段与用时；模型跟随会话（可固定 + 回退路由 failover），设置折叠卡含快速模式、推理钳档、Token 上限自适应、携带上下文等开关；55 例自动化测试 + GitHub Actions CI，rc.7 真实 profile 端到端实测",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-remote-sandbox",
@@ -830,7 +890,7 @@
       "category": "Infrastructure",
       "description": "生产级远程执行世界：E2B 沙箱内纯 JS sidecar，fs/subprocess 单次往返、进程输出有界、心跳保活、崩溃透明恢复（resume/recreate）、tar 工作区同步；修复官方 e2b POC 两处 host 假设。43 项测试（含 6 项真机 E2E）全绿",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-repo-context",
@@ -840,7 +900,7 @@
       "category": "Plugin",
       "description": "把 git 状态与仓库规范动态注入 system prompt（section/context/variable，官方 system-prompt 缝隙插件）；dsh-plugin-verify 0.1.2 实测 7/7 waterfall + 工具真实执行（R3 isError:false）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-research-report",
@@ -850,7 +910,7 @@
       "category": "Plugin",
       "description": "证据账本与可验证报告引擎：内容寻址的声明-快照绑定与逐字节核查，产出带逐条判定与 SHA-256 清单封存的版本化报告；npm 0.1.0 已发布",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-review-skills",
@@ -860,7 +920,7 @@
       "category": "Skill",
       "description": "Engineering-discipline skill pack — code-review, simplify, plan-then-execute, test-first, resolve-conflict; bundled ctx.skills provider",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-routing-suite",
@@ -870,7 +930,17 @@
       "category": "Plugin",
       "description": "注入器 × 思维模式路由套装（3300+★ 正主仓，勿与同名仿品混）：免重启运行时注入器 + 任务感知推理模式路由预设（P1-P23 实测）；injector 子目录 `dsh plugin add` 安装",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
+    },
+    {
+      "name": "dsh-score",
+      "repo": "PerryLink/dsh-score",
+      "owner": "PerryLink",
+      "url": "https://github.com/PerryLink/dsh-score",
+      "category": "Plugin",
+      "description": "多维质量评分：对 DSH 插件/仓库按安装成功（消费 dsh-test-drive 结果）、维护活跃度、文档完整性、安全扫描、协议合规五维打分，产出 JSON/Markdown 排行榜，结论均有真实 CLI 证据与审计时间戳",
+      "repositoryStatus": "public",
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-security-scan",
@@ -880,7 +950,7 @@
       "category": "Plugin",
       "description": "Secret & dangerous-pattern scanner — API keys/tokens/private keys redacted; ignore lists; zero deps",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-sentinel",
@@ -890,7 +960,7 @@
       "category": "Plugin",
       "description": "事件驱动唤醒 agent loop（文件/命令/http/进程/webhook 传感器）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-session-cleaner-cli",
@@ -900,7 +970,7 @@
       "category": "Infrastructure",
       "description": "DSH 会话数据离线清理 CLI：按工作区交互/命令删除会话（回收站+恢复+自动备份）、同步工作区账目与投影缓存、修剪幽灵条目；零依赖 Node≥18，8 项端到端测试全绿 + CI",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-session-hub",
@@ -910,7 +980,7 @@
       "category": "Channel",
       "description": "多服务器 DSH 会话聚合与原生操控：网关+官方 UI 桥，一屏合并多个远程 dsh web 的会话，支持历史/prompt/取消/重命名/fork/模型选择/审批问答，并导入本机其他工具的历史会话",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-session-pin",
@@ -920,7 +990,7 @@
       "category": "Plugin",
       "description": "会话与工作区置顶（双面 host+client）：行级图钉与换色、会话头开关、已置顶面板、持久化 settings 命名空间；0.4.0 再加会话导航组织器——Pin 分组（boards）、标签与保存视图、会话健康摘要（只读脱敏）与 /goto 模糊跳转；全部浏览器本地零网络",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-session-pins",
@@ -930,7 +1000,7 @@
       "category": "Plugin",
       "description": "在侧边栏持久置顶并快速打开可用普通会话；rc.6 归档项可识别、可移除但不可重新打开（无凭据运行级实测）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-session-repair",
@@ -940,7 +1010,7 @@
       "category": "Plugin",
       "description": "会话日志修复：给未知事件类型补 ignorable 并按合规帧格式重写，修复 SessionFormatUnsupportedError（修复前自动备份）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-session-tabs",
@@ -950,7 +1020,7 @@
       "category": "Plugin",
       "description": "浏览器式会话标签页：顶部标签条从侧边栏右缘开始（不挤占侧边栏），点击切换/关闭/新建、中键关标签与侧边栏后台打开、鼠标侧键会话历史导航、运行状态点；纯客户端零网络零持久化",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-side-chat",
@@ -960,7 +1030,7 @@
       "category": "Plugin",
       "description": "DSH Web 侧边聊天：选中对话片段在右侧面板的侧边聊天提问（按会话隔离，继承主会话模型/思考难度/权限），AI 回复可原文或摘要带回主会话，问题弹框选项可一键带入",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-sidebar-mode",
@@ -970,7 +1040,7 @@
       "category": "Plugin",
       "description": "侧边栏「新会话」按钮内嵌 Agent 预设快速切换：点击弹出预设菜单即点即用，与设置里的「Agent 预设」双向同步",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-simple-wiki-memory",
@@ -980,7 +1050,7 @@
       "category": "Plugin",
       "description": "简易 Wiki 持久记忆（DSWM）：一个索引文档自动注入 + 每主题一个 md 文件按需读取，省 token 轻量无压力；pending 准入→确认晋升→archive 归档三区 + memory-log 审计 + git 自动备份；纯 Markdown 所见即所得，跨 harness 共享",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-skill-pack-security",
@@ -990,7 +1060,7 @@
       "category": "Skill",
       "description": "安全审计方法论技能包：八个 agent 技能（密钥扫描、依赖审计、供应链评审、提示注入审查、审计总编排、威胁建模、漏洞情报、事件响应），中英双版本；`dsh plugin add @perrylink/dsh-skill-pack-security-provider` 一键挂载",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-skill-search",
@@ -1000,7 +1070,7 @@
       "category": "Plugin",
       "description": "按需技能搜索器：海量技能库零预加载，关键词搜索 SKILL.md（rg 快路径 + Node 兜底），AI 只读命中的那份",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-slack",
@@ -1010,7 +1080,7 @@
       "category": "Plugin",
       "description": "Slack 通知插件（slack_notify/slack_channels），Bot Token + 官方 Web API",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-smooth-stream",
@@ -1020,7 +1090,7 @@
       "category": "Plugin",
       "description": "DSH Web 界面丝滑流式渲染：打字机跟随 token 到达、Markdown 边流边渲染、换行滑入、不闪烁，滚动归用户，尊重 prefers-reduced-motion",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-socrates",
@@ -1030,7 +1100,7 @@
       "category": "Plugin",
       "description": "苏格拉底式澄清优先的深度研究插件：自适应多轮研究、交叉验证（声明级三分裁决+单跳回补）、程序化引用审计、学术三源（arXiv/PubMed/S2）、模型分层降本（Pro/Flash）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-soul-md",
@@ -1040,7 +1110,7 @@
       "category": "Plugin",
       "description": "soul.md 风格人设 + 长期记忆：设置页输入人设卡名称和内容即可，文件由插件自动管理；按工作区指定人设、聊天框可给会话单独切人设；AI 可自行演化人设与记忆（soul_read/soul_update/memory_*）；npm 已发布",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-spend",
@@ -1050,7 +1120,7 @@
       "category": "Plugin",
       "description": "Token 用量统计与预计费用：右下角悬浮窗，按模型/按天/按会话多维聚合，内置供应商知识库自动识别计费计划（web bundle）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-split-panes",
@@ -1061,7 +1131,7 @@
       "description": "分屏面板",
       "upstreamRepo": "dsh-external/dsh-split-panes",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-ssh",
@@ -1071,7 +1141,7 @@
       "category": "Plugin",
       "description": "SSH 主机管理 + 远程执行：ssh_host_list/add/update/remove/ssh_bash 五工具，主机台账持久化到 ~/.dsh/ssh-hosts.json，支持 agent/key/password 三种认证（password 走 SSH_ASKPASS，沙箱可用）；提供 Agent 预设与 Cordis 插件两种形态",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-sticky-note",
@@ -1081,7 +1151,7 @@
       "category": "Plugin",
       "description": "输入框工具栏快速便签：点子/感想/TODO，Markdown 预览、自动保存、一键发送、保留与自动清除",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-subagent-cwd",
@@ -1091,7 +1161,7 @@
       "category": "Bundle",
       "description": "dsh-subagent-tools 加按次 cwd（子代理工作目录），附两处进程内 provider 补丁；rc.6 前台/后台 cwd 实测通过",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-subagent-max",
@@ -1101,7 +1171,7 @@
       "category": "Plugin",
       "description": "子代理委派按次指定模型/提供商（host 侧 `subagent_with_model` 工具）+ 多面板实时流式子代理查看器（client 侧浮动面板 token 级流式输出、卡片网格、拖拽弹出、中英 i18n）；rc.6 headless 实测通过",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-subagent-tools",
@@ -1111,7 +1181,7 @@
       "category": "Bundle",
       "description": "子代理委派按次覆盖 model/provider/persona/toolFilter、@preset: 引用、provider/model 复合 id（bundle，不改官方文件）；rc.6 headless+web 实测通过",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-suite",
@@ -1121,7 +1191,7 @@
       "category": "Infrastructure",
       "description": "DSH 插件活目录 + 脚手架 + 内置插件商店：785+ 插件每小时刷新、每日兼容 CI 实测、中英双语可搜索目录站；含 create-dsh-plugin 脚手架与 plugin-manager / plugin-notify / plugin-session-export / plugin-team-board 五个 npm 包",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-talk",
@@ -1131,7 +1201,7 @@
       "category": "Plugin",
       "description": "语音优先会话闭环：作曲器麦克风按钮 + 浏览器/本地语音转写（Web Speech、FunASR、whisper.cpp），speak 工具朗读回复（browser、edge-tts、piper），事件播报带静音开关，说话打断",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-tdai-memory",
@@ -1141,7 +1211,7 @@
       "category": "Plugin",
       "description": "TencentDB Agent Memory 的 DSH 移植：L0 对话捕获 → L1 结构化记忆提取 → L2 场景/L3 画像，自动召回注入 + 记忆/对话搜索工具；复用现有 ~/.memory-tencentdb 数据；附 Web UI 设置栏",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-telegram",
@@ -1151,7 +1221,17 @@
       "category": "Channel",
       "description": "Telegram runtime adapter — chat with dsh agents from Telegram; per-chat sessions, followup bridging, committed-text streaming, allowlist auth, zero runtime deps",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
+    },
+    {
+      "name": "dsh-test-drive",
+      "repo": "PerryLink/dsh-test-drive",
+      "owner": "PerryLink",
+      "url": "https://github.com/PerryLink/dsh-test-drive",
+      "category": "Plugin",
+      "description": "隔离安装与冒烟实测驱动：把仓库或 npm 包装进一次性 DSH_HOME 配置，校验 bundle patch 层与启动日志，输出结构化通过/失败矩阵（JSON/Markdown）供评分管线消费，并隔离清理所有自有临时目录；npm dsh-test-drive 0.2.3",
+      "repositoryStatus": "public",
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-test-normalizer",
@@ -1161,7 +1241,7 @@
       "category": "Plugin",
       "description": "pytest / Vitest / Jest / Cargo 测试结果归一化为稳定结构；npm 包 @mkaliezz/dsh-test-runner",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-test-runner",
@@ -1171,7 +1251,7 @@
       "category": "Plugin",
       "description": "结构化测试运行工具 test_run：自动探测 vitest/jest/pytest/node:test，执行并解析失败摘要，避免模型阅读整段原始测试输出",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-thinkmeter",
@@ -1181,7 +1261,7 @@
       "category": "Plugin",
       "description": "Think 思考行 Token 计量表：把聊天视图流式 Think 预览替换为实时 token 数显示（Thinking ≈ N tokens），落定时精确取 usage.reasoningTokens、缺失时启发式估算，点击可展开/收起完整思考文本（web client 插件，dsh.bundle 一键安装）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-tianshu-tui",
@@ -1191,7 +1271,7 @@
       "category": "Plugin",
       "description": "DSH 的 TUI（终端界面）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-tokstat",
@@ -1201,7 +1281,7 @@
       "category": "Plugin",
       "description": "DSH 使用量与性能统计：设置页「统计」面板（概览/模型/会话/请求，TTFT/TPS/Tokens/成本）+ Python TUI；Node half + client web bundle",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-tool-vision",
@@ -1211,7 +1291,7 @@
       "category": "Plugin",
       "description": "外置视觉模型插件：inspect_image 把本地图片或 http(s) 图片 URL 发给任意 OpenAI 兼容端点，视觉模型看图的文字回答直接带回对话；附 Web UI 设置栏",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-trading-toolkit",
@@ -1221,7 +1301,7 @@
       "category": "Plugin",
       "description": "A股+美股行情工具箱：实时行情/OHLCV K线/ADX 三状态信号/回测预览，东方财富免 Key 直连，只读永不下单",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-tray",
@@ -1231,7 +1311,7 @@
       "category": "Plugin",
       "description": "DeepSeek Harness Windows 系统托盘插件（trayicon exe 宿主，无 native 编译）；菜单/通知/headless 降级，双 profile 已验证",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-turn-index",
@@ -1241,7 +1321,7 @@
       "category": "Plugin",
       "description": "对话轮次索引侧边栏：每轮提问一目了然，点击跳转 + 滚动联动高亮，双语纯客户端",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-turn-watchdog",
@@ -1251,7 +1331,7 @@
       "category": "Plugin",
       "description": "回合守夜人：检测疑似卡住的会话并注入警示（turn_watchdog_status 工具）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-ui-quote-selection",
@@ -1261,7 +1341,7 @@
       "category": "Plugin",
       "description": "在 DSH Web 中选中文字，一键引用到输入框；发送问题时自动附上完整原文",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-univer-office",
@@ -1271,7 +1351,7 @@
       "category": "Plugin",
       "description": "Univer 办公插件：在 DSH 中创建/编辑/检查/交付表格、文档、演示文稿、多维表格和画布，支持 xlsx/docx/pptx 导入导出、实时预览与 worktree 审阅；npm `dsh-univer-office` 0.2.5",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-update-notifier",
@@ -1281,7 +1361,7 @@
       "category": "Bundle",
       "description": "DSH 本体版本徽标：常驻侧边栏 Settings 行右侧，三色状态点（红=有更新/绿=最新/黄=检查中或失败），点开五态弹窗（复制更新命令/忽略/稍后/立即检查），启动 10s 首查+6h 复查；零构建、29 单测、mock-llm headless L4 实测（mainline 47f9438，证据见 [VERIFICATION.md](https://github.com/arvin-yd/dsh-update-notifier/blob/main/VERIFICATION.md)）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-update-radar",
@@ -1291,7 +1371,7 @@
       "category": "Plugin",
       "description": "已装插件更新雷达：git 对比 link 插件本地与上游 HEAD，报告落后项（只读）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-vision-proxy",
@@ -1299,9 +1379,9 @@
       "owner": "Flyvhidbwo",
       "url": "https://github.com/Flyvhidbwo/dsh-vision-proxy",
       "category": "Plugin",
-      "description": "DeepSeek 大脑 + 自动识图：GUI 附加的每张图片自动经 OpenAI 兼容 VLM 转译成文字后交给纯文本 DeepSeek——有 key 自动走快速通道（默认 qwen3.7-flash，支持百炼/智谱/OpenRouter 等任意兼容端点），无 key 自动探测本地 Ollama（零配置）",
+      "description": "DeepSeek 大脑 + 自动识图：GUI 附加图片默认经官方 deepseek-v4-flash-vision-exp 原生识图转译（纯文本 V4-Pro 也能看图）；支持任意 OpenAI 兼容 VLM 与本地 Ollama",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-vision-tools",
@@ -1311,7 +1391,7 @@
       "category": "Plugin",
       "description": "视觉能力全家桶：vision_understand 工具（OpenAI 兼容视觉 API，默认免费智谱 GLM-4V-Flash）+ 粘贴/拖拽/按钮三入口识图",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-visual-plugin",
@@ -1321,7 +1401,7 @@
       "category": "Plugin",
       "description": "DSH 视觉桥接插件：主模型无视觉时把用户图片转发到任意 OpenAI 兼容视觉模型（DeepSeek (Vision) 包装适配器 + Web 右侧面板配置/测试/历史），自动拦截描述并支持按问题定向提示词",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-web-access",
@@ -1331,7 +1411,7 @@
       "category": "Plugin",
       "description": "多提供方联网：web_search / fetch_content / source_check，注册 ctx.web 的 web-access 搜索/抓取提供方，Web 面板改配置与策展；npm `dsh-web-access`",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-web-search-firecrawl",
@@ -1341,7 +1421,7 @@
       "category": "Plugin",
       "description": "Firecrawl 搜索提供方：内置 web_search 工具接入 Firecrawl 搜索 API（npm @yangzhe1003/dsh-web-search-firecrawl）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-webhook-bridge",
@@ -1351,7 +1431,7 @@
       "category": "Channel",
       "description": "✅",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-wechat-bridge",
@@ -1361,7 +1441,7 @@
       "category": "Channel",
       "description": "WeChat bridge via official Tencent iLink bot API — QR-code login, one friend = one persistent agent session, zero runtime deps, no OpenClaw",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-win32",
@@ -1371,7 +1451,7 @@
       "category": "Plugin",
       "description": "在 Windows 上把 DSH 用起来：一行装好极简模式的持久 shell（Git Bash/ConPTY，沙箱内可用），npm 可装",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dsh-work",
@@ -1382,7 +1462,7 @@
       "description": "以 dsh 为骨、codex 为皮的桌面 app",
       "upstreamRepo": "vibeinging/dsh-work",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "dshscan",
@@ -1392,7 +1472,7 @@
       "category": "Infrastructure",
       "description": "DSH 插件安全审查器：风险评分/严重等级/证据/安装建议；静态+语义双通道、DSH 特有攻击面规则、npm 源码扫描与 audit、批量扫描、HTML 报告 + Web Dashboard（npm: @shaoshi/dshscan）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "EchoBird",
@@ -1402,7 +1482,7 @@
       "category": "Plugin",
       "description": "多引擎一键安装与模型切换（Top50 成员，registry 插队实测）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "embedded-workbench",
@@ -1412,7 +1492,7 @@
       "category": "Plugin",
       "description": "嵌入式 C/C++ 固件工程插件：8 skills（FreeRTOS/Keil/ARMCLANG/HardFault/状态机/LVGL/架构），dsh 原生 bundle 注入会话启动纪律门（1% Rule / Red Flags / Plan Verification Gate）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "EverOS",
@@ -1422,7 +1502,7 @@
       "category": "Plugin",
       "description": "全 agent 便携记忆层：本地优先 Markdown-native（Top50 成员，registry 插队实测）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "falsify-dsh",
@@ -1432,7 +1512,7 @@
       "category": "Plugin",
       "description": "公开 Falsify CLI 适配器：裁决收据（lint / review --json / gate）。不是第二意见工作流；selftest ≠ claim-bearing",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "logicprobe",
@@ -1442,7 +1522,7 @@
       "category": "Plugin",
       "description": "设计文档与重构计划声明核查：claim 枚举 + 代码库事实核对 + 逻辑原语验证（7 结构 + 7 对抗探针），dsh 原生 bundle 注入核查纪律门",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "modsearch",
@@ -1452,7 +1532,7 @@
       "category": "Plugin",
       "description": "纯文本 agent 的网页搜索桥：问 web 或 X，返回结构化 JSON 证据（modlens 同作者，205★，rc.8 实测 ✅）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "open-design",
@@ -1462,7 +1542,7 @@
       "category": "Plugin",
       "description": "DSH 设计插件：开源 Claude Design 替代（Top50 精选成员，registry 插队实测）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "openpencil",
@@ -1472,7 +1552,7 @@
       "category": "Plugin",
       "description": "OpenPencil 设计工具本体（DSH 适配器 dsh-openpencil 已另有条目；本体插队实测）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "ouroboros",
@@ -1482,7 +1562,7 @@
       "category": "Plugin",
       "description": "Agent OS：agent 自我变强、人只守底线（Top50 Booster 成员，registry 插队实测）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "pi2dsh",
@@ -1492,7 +1572,7 @@
       "category": "Infrastructure",
       "description": "Pi 生态兼容层：用一个 DSH Host ABI 让未修改的 Pi 扩展包作为原生 DSH 插件运行，桥接工具、命令与 hooks、会话与子代理、模型 Provider 与 OAuth、MCP 及 Web UI；npm `pi2dsh`，持续以契约测试和真实 DSH E2E 验证",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "project-blueprint",
@@ -1502,7 +1582,7 @@
       "category": "Skill",
       "description": "❌",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "superdesign-skill",
@@ -1512,7 +1592,7 @@
       "category": "Plugin",
       "description": "UI 与营销图形设计技能（Superdesign 画布，读仓取上下文，436★，rc.8 实测 ✅）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "tabbit-browser",
@@ -1523,7 +1603,7 @@
       "description": "让 DSH Agent 通过 Tabbit 浏览器自带的 `tabbit-cli`（任务隔离的 Playwright CLI）控制真实网页、复用真实登录态，完成网页自动化、信息提取、QA 与基准测试；bundle 随安装自动注册 `tabbit-browser` skill（持久化任务空间、locator 与等待、截图、回执与恢复）+ `tabbit_browser_install` 环境预检工具（要求正式版 ≥ 1.9.0，缺失或过低时按系统地区后台下载国内 `tabbit.com` / 国际 `tabbit.ai` 对应安装包到 Downloads 并通知绝对路径）；MIT，npm `tabbit-browser`",
       "upstreamRepo": "Tabbit-Browser/dsh-plugin",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "TokenLedger",
@@ -1533,7 +1613,7 @@
       "category": "Plugin",
       "description": "侧栏用量面板：把 token 归因到实际服务请求的中继站（121★，rc.8 实测 ✅）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "treg",
@@ -1543,7 +1623,7 @@
       "category": "Plugin",
       "description": "工具目录：可检索约 2600 个外部端点（SEO/SERP/外链/社媒/人脉挖掘，536★，rc.8 实测 ✅）",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     },
     {
       "name": "vpshub",
@@ -1553,7 +1633,7 @@
       "category": "Plugin",
       "description": "DSH 的 VPS Hub:本地 SSH 台账(Orca 风格 ssh-config/manual + tombstone),8 个 vps_* 工具让 AI 发现/测试/执行/传输,密钥仅路径引用;ProxyJump/ProxyCommand、Windows 密钥认证、i18n 设置页 UI;npm 包 dsh-vps-hub(v0.1.8)",
       "repositoryStatus": "public",
-      "repositoryCheckedAt": "2026-08-23T13:05:43.430Z"
+      "repositoryCheckedAt": "2026-08-23T18:51:21.428Z"
     }
   ]
 }
