@@ -4,7 +4,7 @@ import test from "node:test";
 
 const catalog = JSON.parse(await readFile(new URL("../src/data/awesome-catalog.generated.json", import.meta.url), "utf-8"));
 const githubTopicCatalog = JSON.parse(await readFile(new URL("../public/catalog/github-topic.generated.json", import.meta.url), "utf-8"));
-const { compareByStars, packagesWithGithubTopic } = await import("../src/data/packages.js");
+const { compareByStars, curatedPackages, packages: basePackages, packagesWithGithubTopic } = await import("../src/data/packages.js");
 
 test("catalog snapshot is attributable and substantial", () => {
   assert.equal(catalog.meta.sourceRepo, "AdamPlatin123/awesome-dsh-plugins");
@@ -81,4 +81,78 @@ test("registry enriches every source with GitHub stars and ranks descending", ()
 
   const ranked = packages.toSorted(compareByStars);
   assert.ok(ranked.every((plugin, index) => index === 0 || ranked[index - 1].stars >= plugin.stars));
+});
+
+const renamedCuratedRepository = "zhu1090093659/dsh-web-ui";
+const canonicalRepository = "zhu1090093659/dsh-web";
+const fixtureHeadSha = "a".repeat(40);
+
+function topicFixture(repo, stars) {
+  return {
+    name: "renamed-bundle",
+    repo,
+    description: "Installable bundle fixture",
+    topics: ["dsh-plugin"],
+    stars,
+    forks: 1,
+    language: "TypeScript",
+    license: "MIT",
+    pushedAt: "2026-08-31T00:00:00Z",
+    headSha: fixtureHeadSha,
+    bundlePatch: "cordis.patch.yml",
+    lifecycleScripts: [],
+  };
+}
+
+function metadataFixture(repo, stars, aliases = []) {
+  const { headSha, bundlePatch, lifecycleScripts, ...metadata } = topicFixture(repo, stars);
+  return { ...metadata, aliases };
+}
+
+test("registry deduplicates renamed curated and topic repositories after enrichment", () => {
+  const curated = curatedPackages.find((plugin) => plugin.repo === renamedCuratedRepository);
+  assert.ok(curated);
+  for (const topicStars of [100, 101]) {
+    const packages = packagesWithGithubTopic({
+      plugins: [topicFixture(canonicalRepository.toUpperCase(), topicStars)],
+      repositoryMetadata: [metadataFixture(canonicalRepository, 101, [renamedCuratedRepository])],
+    });
+    const matches = packages.filter((plugin) => plugin.repo.toLowerCase() === canonicalRepository);
+    assert.equal(matches.length, 1);
+    assert.equal(matches[0].sourceKind, "curated");
+    assert.equal(matches[0].slug, curated.slug);
+    assert.equal(matches[0].stars, 101);
+    assert.equal(matches[0].command, curated.command);
+    assert.equal(new Set(packages.map((plugin) => plugin.repo.toLowerCase())).size, packages.length);
+    assert.equal(new Set(packages.map((plugin) => plugin.slug)).size, packages.length);
+  }
+});
+
+test("registry uses one metadata snapshot for topic stars and preserves pinned installation", () => {
+  const repo = "fixture-owner/topic-bundle";
+  const packages = packagesWithGithubTopic({
+    plugins: [topicFixture(repo, 100)],
+    repositoryMetadata: [metadataFixture(repo, 101, ["fixture-owner/previous-bundle"])],
+  });
+  const plugin = packages.find((item) => item.repo === repo);
+  assert.equal(plugin.stars, 101);
+  assert.equal(plugin.sourceKind, "github-topic");
+  assert.equal(plugin.installable, true);
+  assert.equal(plugin.headSha, fixtureHeadSha);
+  assert.equal(plugin.bundlePatch, "cordis.patch.yml");
+  assert.equal(plugin.command, `dsh plugin --profile community add github:${repo}#${fixtureHeadSha}`);
+});
+
+test("registry preserves curated precedence when an awesome alias resolves to the same repository", () => {
+  const awesome = basePackages.find((plugin) => plugin.sourceKind === "awesome");
+  assert.ok(awesome);
+  const packages = packagesWithGithubTopic({
+    plugins: [],
+    repositoryMetadata: [metadataFixture(canonicalRepository, 101, [renamedCuratedRepository, awesome.repo])],
+  });
+  const matches = packages.filter((plugin) => plugin.repo.toLowerCase() === canonicalRepository);
+  assert.equal(matches.length, 1);
+  assert.equal(matches[0].sourceKind, "curated");
+  assert.equal(matches[0].stars, 101);
+  assert.equal(new Set(packages.map((plugin) => plugin.repo.toLowerCase())).size, packages.length);
 });

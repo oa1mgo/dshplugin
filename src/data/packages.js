@@ -277,11 +277,18 @@ export function packagesWithGithubTopic(githubTopicCatalog) {
   const uniqueAwesomePackages = discoveredPackages.filter((item) => (
     !topicNames.has(item.name.toLowerCase()) && !topicRepos.has(item.repo.toLowerCase())
   ));
-  return [
-    ...curatedPackages.map((item) => enrichPackage(item, metadataByRepo)),
+  const enrichedPackages = [
+    ...curatedPackages,
     ...topicPackages,
-    ...uniqueAwesomePackages.map((item) => enrichPackage(item, metadataByRepo)),
-  ].map(withSearchText);
+    ...uniqueAwesomePackages,
+  ].map((item) => enrichPackage(item, metadataByRepo));
+  const canonicalPackages = new Map();
+  for (const item of enrichedPackages) {
+    const key = item.repo.toLowerCase();
+    // Preserve curated, topic, then awesome precedence after resolving aliases.
+    if (!canonicalPackages.has(key)) canonicalPackages.set(key, item);
+  }
+  return [...canonicalPackages.values()].map(withSearchText);
 }
 
 export const catalogMeta = {
