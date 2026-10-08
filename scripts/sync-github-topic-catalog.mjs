@@ -164,10 +164,16 @@ async function readRepositoryHead(repository) {
   return readHeadRevision(advertisement);
 }
 
-async function readRepositoryMetadata(repository) {
+async function readRepositoryInfo(repository) {
   const response = await fetchWithRetry(`https://api.github.com/repos/${repository}`, { headers: apiHeaders });
-  if (!response.ok) throw new Error(`GitHub repository metadata failed: ${response.status} ${repository}`);
-  const payload = await response.json();
+  if (!response.ok) throw Object.assign(new Error(`GitHub repository metadata failed: ${response.status} ${repository}`), {
+    status: response.status, phase: "metadata",
+  });
+  return response.json();
+}
+
+async function readRepositoryMetadata(repository) {
+  const payload = await readRepositoryInfo(repository);
   const canonicalRepo = payload.full_name;
   return {
     repo: canonicalRepo,
@@ -176,7 +182,7 @@ async function readRepositoryMetadata(repository) {
     forks: payload.forks_count,
     language: cleanText(payload.language, 40),
     license: payload.license?.spdx_id === "NOASSERTION" ? "" : cleanText(payload.license?.spdx_id, 40),
-    topics: (payload.topics || []).map((value) => cleanText(value.toLowerCase(), 64)).filter(Boolean).sort().slice(0, 32),
+    topics: normalizeTopics(payload.topics || []),
     pushedAt: payload.pushed_at,
     defaultBranch: payload.default_branch,
   };
@@ -201,8 +207,62 @@ function cleanText(value, maximumLength) {
   return value.replace(/\s+/g, " ").trim().slice(0, maximumLength).trimEnd();
 }
 
-async function inspectRepository(repository) {
-  const manifestText = await readRawFile(repository.full_name, repository.default_branch, "package.json");
+export function normalizeTopics(values, requiredTopic) {
+  const normalized = [...new Set(values
+    .filter((value) => typeof value === "string")
+    .map((value) => cleanText(value.toLowerCase(), 64))
+    .filter(Boolean))].sort();
+  if (requiredTopic !== undefined) {
+    if (!normalized.includes(requiredTopic)) {
+      throw new Error(`Required GitHub topic ${requiredTopic} is not verified`);
+    }
+    return [...normalized.filter((value) => value !== requiredTopic).slice(0, 31), requiredTopic].sort();
+  }
+  return normalized.slice(0, 32);
+}
+
+function hasRequiredTopic(topics) {
+  return Array.isArray(topics) && topics.some((value) => (
+    typeof value === "string" && cleanText(value.toLowerCase(), 64) === topic
+  ));
+}
+
+export async function inspectRepository(repository, {
+  readMetadata = readRepositoryInfo,
+  readFile = readRawFile,
+  readHead = readRepositoryHead,
+  log = (event) => console.log(JSON.stringify(event)),
+} = {}) {
+  if (!hasRequiredTopic(repository.topics)) {
+    const searchRepository = repository.full_name;
+    log({ event: "topic_metadata_recheck", repository: searchRepository });
+    try {
+      const fresh = await readMetadata(searchRepository);
+      if (!fresh || !Array.isArray(fresh.topics) || !fresh.topics.every((value) => typeof value === "string")
+        || !/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(fresh.full_name || "")
+        || typeof fresh.default_branch !== "string" || !fresh.default_branch
+        || ["private", "archived", "fork"].some((field) => typeof fresh[field] !== "boolean")) {
+        throw new Error(`Invalid GitHub repository metadata for ${searchRepository}`);
+      }
+      repository = fresh;
+    } catch (error) {
+      if ([404, 410].includes(error.status)) {
+        log({ event: "topic_metadata_rejected", repository: searchRepository, reason: "repositoryUnavailable", status: error.status });
+        return { rejection: "repositoryUnavailable" };
+      }
+      log({ event: "topic_metadata_failed", repository: searchRepository, status: error.status ?? null, networkCode: error.cause?.code ?? null, message: error.message });
+      throw error;
+    }
+    const rejection = repository.private || repository.archived || repository.fork
+      ? "ineligibleRepository" : !hasRequiredTopic(repository.topics) ? "missingRequiredTopic" : null;
+    if (rejection) {
+      log({ event: "topic_metadata_rejected", repository: searchRepository, canonicalRepository: repository.full_name, reason: rejection });
+      return { rejection };
+    }
+    log({ event: "topic_metadata_confirmed", repository: searchRepository, canonicalRepository: repository.full_name });
+  }
+
+  const manifestText = await readFile(repository.full_name, repository.default_branch, "package.json");
   if (manifestText === null) return { rejection: "missingPackageManifest" };
 
   let manifest;
@@ -214,10 +274,10 @@ async function inspectRepository(repository) {
 
   const bundlePatch = normalizePatchPath(manifest?.dsh?.bundle?.patch);
   if (!bundlePatch) return { rejection: "missingBundleDeclaration" };
-  const patchText = await readRawFile(repository.full_name, repository.default_branch, bundlePatch);
+  const patchText = await readFile(repository.full_name, repository.default_branch, bundlePatch);
   if (patchText === null || !patchText.trim()) return { rejection: "missingBundlePatch" };
 
-  const headSha = await readRepositoryHead(repository.full_name);
+  const headSha = await readHead(repository.full_name);
   if (!headSha) return { rejection: "unresolvedRevision" };
 
   const canonicalRepo = repository.full_name;
@@ -225,11 +285,11 @@ async function inspectRepository(repository) {
   const lifecycleScripts = ["preinstall", "install", "postinstall", "prepare"].filter(
     (script) => typeof scripts[script] === "string" && scripts[script].trim(),
   );
-  const topics = [...new Set([...(repository.topics || []), ...stringList(manifest.keywords)])]
-    .map((value) => cleanText(value.toLowerCase(), 64))
-    .filter(Boolean)
-    .sort()
-    .slice(0, 32);
+  const topicValues = [...repository.topics, ...stringList(manifest.keywords)];
+  const topics = normalizeTopics(topicValues, topic);
+  if (topicValues.length > 32) {
+    log({ event: "topic_tags_trimmed", repository: canonicalRepo, inputTagCount: topicValues.length, retainedTagCount: topics.length, requiredTopic: topic });
+  }
 
   return {
     plugin: {
@@ -259,64 +319,79 @@ function countBy(items, key) {
   }, {});
 }
 
-const discovered = [];
-for (const stars of starSlices) {
-  discovered.push(...await searchSlice(stars));
-}
-const repositories = [...new Map(discovered.map((repository) => [repository.full_name.toLowerCase(), repository])).values()];
-console.log(`Discovered ${repositories.length} public, non-archived repositories with topic:${topic}.`);
-
-let inspected = 0;
-const inspectionResults = await mapLimit(repositories, rawConcurrency, async (repository) => {
-  const result = await inspectRepository(repository);
-  inspected += 1;
-  if (inspected % 200 === 0) console.log(`Inspected ${inspected}/${repositories.length} repository manifests.`);
-  return result;
-});
-const plugins = inspectionResults
-  .flatMap((result) => result.plugin ? [result.plugin] : [])
-  .sort((a, b) => Date.parse(b.pushedAt) - Date.parse(a.pushedAt) || b.stars - a.stars || a.repo.localeCompare(b.repo));
-const rejections = countBy(inspectionResults.filter((result) => result.rejection), "rejection");
-const topicRepositories = new Set(plugins.map((plugin) => plugin.repo.toLowerCase()));
-const supplementalRepositories = [...new Set([
-  ...curatedPackages.map((plugin) => plugin.repo),
-  ...awesomeCatalog.plugins.map((plugin) => plugin.repo),
-])].filter((repository) => !topicRepositories.has(repository.toLowerCase()));
-const repositoryMetadata = (await mapLimit(supplementalRepositories, rawConcurrency, readRepositoryMetadata))
-  .sort((a, b) => b.stars - a.stars || a.repo.localeCompare(b.repo));
-const checkedAt = new Date().toISOString();
-const output = {
-  meta: {
-    topic,
-    sourceUrl,
-    searchQuery: `topic:${topic} fork:false archived:false`,
-    sourceUpdatedAt: checkedAt,
-    discovery: {
-      method: "github-search-and-root-bundle-manifest",
-      candidates: repositories.length,
-      accepted: plugins.length,
-      rejected: repositories.length - plugins.length,
-      rejectionCounts: rejections,
-    },
-    total: plugins.length,
-  },
-  plugins,
-  repositoryMetadata,
-};
-
-try {
-  const previous = JSON.parse(await readFile(destination, "utf8"));
-  const comparablePrevious = structuredClone(previous);
-  const comparableOutput = structuredClone(output);
-  comparablePrevious.meta.sourceUpdatedAt = "";
-  comparableOutput.meta.sourceUpdatedAt = "";
-  if (JSON.stringify(comparablePrevious) === JSON.stringify(comparableOutput)) {
-    output.meta.sourceUpdatedAt = previous.meta.sourceUpdatedAt;
+async function main() {
+  const discovered = [];
+  for (const stars of starSlices) {
+    discovered.push(...await searchSlice(stars));
   }
-} catch (error) {
-  if (error.code !== "ENOENT") throw error;
+  const repositories = [...new Map(discovered.map((repository) => [repository.full_name.toLowerCase(), repository])).values()];
+  console.log(`Discovered ${repositories.length} public, non-archived repositories with topic:${topic}.`);
+
+  let inspected = 0;
+  const inspectionResults = await mapLimit(repositories, rawConcurrency, async (repository) => {
+    let result;
+    try {
+      result = await inspectRepository(repository);
+    } catch (error) {
+      console.error(JSON.stringify({ event: "repository_inspection_failed", repository: repository.full_name, phase: error.phase ?? "inspection", status: error.status ?? null, networkCode: error.cause?.code ?? null, message: error.message }));
+      throw error;
+    }
+    inspected += 1;
+    if (inspected % 200 === 0) console.log(`Inspected ${inspected}/${repositories.length} repository manifests.`);
+    return result;
+  });
+  const plugins = inspectionResults
+    .flatMap((result) => result.plugin ? [result.plugin] : [])
+    .sort((a, b) => Date.parse(b.pushedAt) - Date.parse(a.pushedAt) || b.stars - a.stars || a.repo.localeCompare(b.repo));
+  const rejections = countBy(inspectionResults.filter((result) => result.rejection), "rejection");
+  const topicRepositories = new Set(plugins.map((plugin) => plugin.repo.toLowerCase()));
+  const supplementalRepositories = [...new Set([
+    ...curatedPackages.map((plugin) => plugin.repo),
+    ...awesomeCatalog.plugins.map((plugin) => plugin.repo),
+  ])].filter((repository) => !topicRepositories.has(repository.toLowerCase()));
+  const repositoryMetadata = (await mapLimit(supplementalRepositories, rawConcurrency, readRepositoryMetadata))
+    .sort((a, b) => b.stars - a.stars || a.repo.localeCompare(b.repo));
+  const checkedAt = new Date().toISOString();
+  const output = {
+    meta: {
+      topic,
+      sourceUrl,
+      searchQuery: `topic:${topic} fork:false archived:false`,
+      sourceUpdatedAt: checkedAt,
+      discovery: {
+        method: "github-search-and-root-bundle-manifest",
+        candidates: repositories.length,
+        accepted: plugins.length,
+        rejected: repositories.length - plugins.length,
+        rejectionCounts: rejections,
+      },
+      total: plugins.length,
+    },
+    plugins,
+    repositoryMetadata,
+  };
+
+  try {
+    const previous = JSON.parse(await readFile(destination, "utf8"));
+    const comparablePrevious = structuredClone(previous);
+    const comparableOutput = structuredClone(output);
+    comparablePrevious.meta.sourceUpdatedAt = "";
+    comparableOutput.meta.sourceUpdatedAt = "";
+    if (JSON.stringify(comparablePrevious) === JSON.stringify(comparableOutput)) {
+      output.meta.sourceUpdatedAt = previous.meta.sourceUpdatedAt;
+    }
+  } catch (error) {
+    if (error.code !== "ENOENT") throw error;
+  }
+
+  await writeFile(destination, `${JSON.stringify(output, null, 2)}\n`);
+  console.log(`Accepted ${plugins.length}/${repositories.length} repositories with a root dsh.bundle.patch contract.`);
+  console.log(`Refreshed stars and repository metadata for ${repositoryMetadata.length} additional catalog entries.`);
 }
 
-await writeFile(destination, `${JSON.stringify(output, null, 2)}\n`);
-console.log(`Accepted ${plugins.length}/${repositories.length} repositories with a root dsh.bundle.patch contract.`);
-console.log(`Refreshed stars and repository metadata for ${repositoryMetadata.length} additional catalog entries.`);
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  main().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  });
+}

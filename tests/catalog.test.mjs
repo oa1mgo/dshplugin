@@ -44,7 +44,10 @@ test("GitHub topic snapshot records a complete, filtered scan", () => {
 test("GitHub topic entries have an immutable installable bundle contract", () => {
   const repositories = githubTopicCatalog.plugins.map((plugin) => plugin.repo.toLowerCase());
   assert.equal(new Set(repositories).size, repositories.length);
-  assert.ok(githubTopicCatalog.plugins.every((plugin) => plugin.topics.includes("dsh-plugin")));
+  assert.ok(
+    githubTopicCatalog.plugins.every((plugin) => plugin.topics.includes("dsh-plugin")),
+    `Missing required dsh-plugin topic: ${githubTopicCatalog.plugins.filter((plugin) => !plugin.topics.includes("dsh-plugin")).map((plugin) => plugin.repo).join(", ")}`,
+  );
   assert.ok(githubTopicCatalog.plugins.every((plugin) => /^[0-9a-f]{40}$/.test(plugin.headSha)));
   assert.ok(githubTopicCatalog.plugins.every((plugin) => plugin.bundlePatch && !plugin.bundlePatch.includes("..")));
   assert.ok(githubTopicCatalog.plugins.every((plugin) => Array.isArray(plugin.lifecycleScripts)));
