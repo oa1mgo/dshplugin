@@ -39,7 +39,7 @@
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "vite": "^6.4.3",
-    "wrangler": "^4.30.0"
+    "wrangler": "^4.144.0"
   },
   "devDependencies": {
     "@types/node": "^26.2.0"
